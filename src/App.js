@@ -1,12 +1,16 @@
 import React from 'react';
 import './App.css';
-import NameForm from './Views/test.js';
+import NameForm from './Components/nameform';
+import FetchRandomUser from './Components/FetchRandomUser';
+
 
 function App() {
-  
-  
+
+
   return (
+    <div>
     <NameForm />
+    </div>
   );
 }
 
