@@ -1,27 +1,22 @@
   .header {
-    background: tomato;
-  }
-  
-  .footer {
-    background: lightgreen;
-  }
-  
-  input {
-    border: 3px solid black;
     text-align: center;
+    background: #66717E;
+    color: #BFC0C0;
   }
-  .main {
+  input, select {
+    border: 3px solid #2d3142;
     text-align: center;
-    background: deepskyblue;
-  }
-  
+  }  
   body {
     padding: 2em; 
+    background-color: #4F5D75;
   }
 
   .column {
     float: left;
-    width: 50%;
+    width: 48%;
+    background-color: #BFC0C0;
+    border: 3px solid whitesmoke;
   }
   
   /* Clear floats after the columns */
