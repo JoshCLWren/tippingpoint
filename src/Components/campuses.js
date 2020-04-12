@@ -8,7 +8,7 @@ const CAMPUSES = {
     bnb: 26,
     cen: 33,
     cta: 237,
-    edm: 33.8,
+    edm: 33,
     fts: 379,
     ftw: 435,
     hnv: 1383,
