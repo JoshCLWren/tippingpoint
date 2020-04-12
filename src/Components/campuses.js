@@ -1,12 +1,12 @@
 const CAMPUSES = {
-    
+    // round trip for each campus from MWC
     TUL_FULL_TRIP: 341,
     OKC_FULL_TRIP: 156,
     TEXAS_FULL_TRIP: 504,
     alb: 3042,
     bao: 270,
-    bnb: 26.6,
-    cen: 33.8,
+    bnb: 26,
+    cen: 33,
     cta: 237,
     edm: 33.8,
     fts: 379,
@@ -16,7 +16,7 @@ const CAMPUSES = {
     klr: 391,
     mor: 33,
     msf: 442,
-    mus: 44.3,
+    mus: 44,
     ncs: 1220,
     nkc: 729,
     noc: 35,
