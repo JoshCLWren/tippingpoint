@@ -1,4 +1,4 @@
-const CAMPUSES = {
+const PRESETS = {
     // round trip for each campus from MWC
     TUL_FULL_TRIP: 341,
     OKC_FULL_TRIP: 156,
@@ -42,4 +42,4 @@ const CAMPUSES = {
 
     }
 
-export {CAMPUSES};
+export {PRESETS};

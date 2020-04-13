@@ -1,7 +1,7 @@
 import React from "react";
 import "./main.css";
 import {KEY_NUMBERS} from "./keyValues";
-import {CAMPUSES} from "./campuses";
+import {PRESETS} from "./presets";
 
 class TippingPoint extends React.Component {
     constructor(props) {
@@ -94,43 +94,43 @@ class TippingPoint extends React.Component {
                     Select your trip:
                       <select value={this.state.totalMiles} onChange={this.onTotalMileChange}>
                         <option value="0">Custom Trip</option>
-                        <option value={CAMPUSES.TUL_FULL_TRIP}>TULSA RUN</option>
-                        <option value={CAMPUSES.OKC_FULL_TRIP}>OKC RUN</option>
-                        <option value={CAMPUSES.TEXAS_FULL_TRIP}>TEXAS RUN</option>
-                        <option value={CAMPUSES.alb}>ALB</option>
-                        <option value={CAMPUSES.bao}>BAO</option>
-                        <option value={CAMPUSES.bnb}>BNB</option>
-                        <option value={CAMPUSES.cen}>CEN</option>
-                        <option value={CAMPUSES.cta}>CTA</option>
-                        <option value={CAMPUSES.edm}>EDM</option>
-                        <option value={CAMPUSES.fts}>FTS</option>
-                        <option value={CAMPUSES.ftw}>FTW</option>
-                        <option value={CAMPUSES.hnv}>HNV</option>
-                        <option value={CAMPUSES.jnk}>JNK</option>
-                        <option value={CAMPUSES.klr}>KLR</option>
-                        <option value={CAMPUSES.mor}>MOR</option>
-                        <option value={CAMPUSES.msf}>MSF</option>
-                        <option value={CAMPUSES.mus}>MUS</option>
-                        <option value={CAMPUSES.ncs}>NCS</option>
-                        <option value={CAMPUSES.nor}>NOR</option>
-                        <option value={CAMPUSES.okc}>OKC</option>
-                        <option value={CAMPUSES.omh}>OMH</option>
-                        <option value={CAMPUSES.opk}>OPK</option>
-                        <option value={CAMPUSES.ows}>OWS</option>
-                        <option value={CAMPUSES.rga}>RGA</option>
-                        <option value={CAMPUSES.rrn}>RRN</option>
-                        <option value={CAMPUSES.sba}>SBA</option>
-                        <option value={CAMPUSES.shw}>SHW</option>
-                        <option value={CAMPUSES.soc}>SOC</option>
-                        <option value={CAMPUSES.spf}>SPF</option>
-                        <option value={CAMPUSES.sto}>STO</option>
-                        <option value={CAMPUSES.stw}>STW</option>
-                        <option value={CAMPUSES.tul}>TUL</option>
-                        <option value={CAMPUSES.wch}>WCH</option>
-                        <option value={CAMPUSES.wel}>WEL</option>
-                        <option value={CAMPUSES.wwk}>WWK</option>
-                        <option value={CAMPUSES.ykn}>YKN</option>
-                        <option value={CAMPUSES.ikea}>Ikea</option>
+                        <option value={PRESETS.TUL_FULL_TRIP}>TULSA RUN</option>
+                        <option value={PRESETS.OKC_FULL_TRIP}>OKC RUN</option>
+                        <option value={PRESETS.TEXAS_FULL_TRIP}>TEXAS RUN</option>
+                        <option value={PRESETS.alb}>ALB</option>
+                        <option value={PRESETS.bao}>BAO</option>
+                        <option value={PRESETS.bnb}>BNB</option>
+                        <option value={PRESETS.cen}>CEN</option>
+                        <option value={PRESETS.cta}>CTA</option>
+                        <option value={PRESETS.edm}>EDM</option>
+                        <option value={PRESETS.fts}>FTS</option>
+                        <option value={PRESETS.ftw}>FTW</option>
+                        <option value={PRESETS.hnv}>HNV</option>
+                        <option value={PRESETS.jnk}>JNK</option>
+                        <option value={PRESETS.klr}>KLR</option>
+                        <option value={PRESETS.mor}>MOR</option>
+                        <option value={PRESETS.msf}>MSF</option>
+                        <option value={PRESETS.mus}>MUS</option>
+                        <option value={PRESETS.ncs}>NCS</option>
+                        <option value={PRESETS.nor}>NOR</option>
+                        <option value={PRESETS.okc}>OKC</option>
+                        <option value={PRESETS.omh}>OMH</option>
+                        <option value={PRESETS.opk}>OPK</option>
+                        <option value={PRESETS.ows}>OWS</option>
+                        <option value={PRESETS.rga}>RGA</option>
+                        <option value={PRESETS.rrn}>RRN</option>
+                        <option value={PRESETS.sba}>SBA</option>
+                        <option value={PRESETS.shw}>SHW</option>
+                        <option value={PRESETS.soc}>SOC</option>
+                        <option value={PRESETS.spf}>SPF</option>
+                        <option value={PRESETS.sto}>STO</option>
+                        <option value={PRESETS.stw}>STW</option>
+                        <option value={PRESETS.tul}>TUL</option>
+                        <option value={PRESETS.wch}>WCH</option>
+                        <option value={PRESETS.wel}>WEL</option>
+                        <option value={PRESETS.wwk}>WWK</option>
+                        <option value={PRESETS.ykn}>YKN</option>
+                        <option value={PRESETS.ikea}>Ikea</option>
                       </select>
                     </label>
                   </div>
