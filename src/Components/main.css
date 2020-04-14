@@ -15,6 +15,7 @@
   .column {
     float: left;
     width: 48%;
+    height: 40%;
     background-color: #BFC0C0;
     border: 3px solid whitesmoke;
   }

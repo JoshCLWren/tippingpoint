@@ -2,6 +2,7 @@ import React from "react";
 import "./main.css";
 import {KEY_NUMBERS} from "./keyValues";
 import {PRESETS} from "./presets";
+import CustomTrip from "./mapBoxAPI";
 
 class TippingPoint extends React.Component {
     constructor(props) {
@@ -24,12 +25,21 @@ class TippingPoint extends React.Component {
         rentalCost: 0,
         truckFuel: 0,
         rentalPaddingDay: 1,
-        trip: "Custom"       
-      };
+        trip: "Custom",
+        locationOne: '-97.4111604, 35.4653761',
+        locationTwo: '-73.778716, 42.740913'       
+      }
+
+      
+
       this.onTotalMileChange.bind(this);
       this.onDriversChange.bind(this);
       this.calculateTotals.bind(this);
+      this.onRentalPaddingDay.bind(this);
+      this.onLocationOneChange.bind(this);
+      this.onLocationTwoChange.bind(this);
     }  
+
     calculateTotals = () =>{
       const calculateHours = Math.round(this.state.totalMiles / 75);
       const howManyMeals = Math.round(this.state.totalMiles / 300);
@@ -64,9 +74,9 @@ class TippingPoint extends React.Component {
       console.log(laborCalculator);
     };
 
+
     onTotalMileChange = (event) => {
-      this.setState({totalMiles: parseInt(event.target.value)},this.calculateTotals);
-    
+      this.setState({totalMiles: parseInt(event.target.value)},this.calculateTotals)    
     };
     onDriversChange = (event) => {
       this.setState({drivers: parseInt(event.target.value)}, this.calculateTotals)
@@ -74,8 +84,13 @@ class TippingPoint extends React.Component {
     onRentalPaddingDay = (event) => {
       this.setState({rentalPaddingDay: parseInt(event.target.value)}, this.calculateTotals)
     };
+    onLocationOneChange = (event) => {
+      this.setState({locationOne: event.target.value}, this.calculateTotals)
+    }
+    onLocationTwoChange = (event) => {
+      this.setState({locationTwo: event.target.value}, this.calculateTotals)
+    }
 
-    
     render(){
 
 
@@ -94,43 +109,12 @@ class TippingPoint extends React.Component {
                     Select your trip:
                       <select value={this.state.totalMiles} onChange={this.onTotalMileChange}>
                         <option value="0">Custom Trip</option>
-                        <option value={PRESETS.TUL_FULL_TRIP}>TULSA RUN</option>
-                        <option value={PRESETS.OKC_FULL_TRIP}>OKC RUN</option>
-                        <option value={PRESETS.TEXAS_FULL_TRIP}>TEXAS RUN</option>
-                        <option value={PRESETS.alb}>ALB</option>
-                        <option value={PRESETS.bao}>BAO</option>
-                        <option value={PRESETS.bnb}>BNB</option>
-                        <option value={PRESETS.cen}>CEN</option>
-                        <option value={PRESETS.cta}>CTA</option>
-                        <option value={PRESETS.edm}>EDM</option>
-                        <option value={PRESETS.fts}>FTS</option>
-                        <option value={PRESETS.ftw}>FTW</option>
-                        <option value={PRESETS.hnv}>HNV</option>
-                        <option value={PRESETS.jnk}>JNK</option>
-                        <option value={PRESETS.klr}>KLR</option>
-                        <option value={PRESETS.mor}>MOR</option>
-                        <option value={PRESETS.msf}>MSF</option>
-                        <option value={PRESETS.mus}>MUS</option>
-                        <option value={PRESETS.ncs}>NCS</option>
-                        <option value={PRESETS.nor}>NOR</option>
-                        <option value={PRESETS.okc}>OKC</option>
-                        <option value={PRESETS.omh}>OMH</option>
-                        <option value={PRESETS.opk}>OPK</option>
-                        <option value={PRESETS.ows}>OWS</option>
-                        <option value={PRESETS.rga}>RGA</option>
-                        <option value={PRESETS.rrn}>RRN</option>
-                        <option value={PRESETS.sba}>SBA</option>
-                        <option value={PRESETS.shw}>SHW</option>
-                        <option value={PRESETS.soc}>SOC</option>
-                        <option value={PRESETS.spf}>SPF</option>
-                        <option value={PRESETS.sto}>STO</option>
-                        <option value={PRESETS.stw}>STW</option>
-                        <option value={PRESETS.tul}>TUL</option>
-                        <option value={PRESETS.wch}>WCH</option>
-                        <option value={PRESETS.wel}>WEL</option>
-                        <option value={PRESETS.wwk}>WWK</option>
-                        <option value={PRESETS.ykn}>YKN</option>
-                        <option value={PRESETS.ikea}>Ikea</option>
+                        {
+                          Object.entries(PRESETS).map(([campus, mileage]) => (
+                          <option key={campus} value={mileage}>
+                            {campus}
+                          </option>
+                        ))} 
                       </select>
                     </label>
                   </div>
@@ -142,6 +126,10 @@ class TippingPoint extends React.Component {
                         name="totalMiles"
                         defaultValue="0"
                         onChange={this.onTotalMileChange}/>
+                    </div>
+                    <div>
+                      <p>Trip Builder</p>
+                        <CustomTrip locationOne={this.state.locationOne} locationTwo={this.state.locationTwo} onLocationOneChange={this.onLocationOneChange} onLocationTwoChange={this.onLocationTwoChange}/>>
                     </div>
                     <div>
                       <p>Total Drivers</p>
