@@ -18,12 +18,12 @@ class TippingPoint extends React.Component {
         hours: 0,
         meals: 0,
         laborCost: 0,
-        truckTotal: 0,
+        truck26Total: 0,
         vanTotal: 0,
         mealCost: 0,
         vanFuelCost: 0,
-        rentalCost: 0,
-        truckFuel: 0,
+        rental26Cost: 0,
+        truck26Fuel: 0,
         rentalPaddingDay: 1,
         trip: "Custom",
         locationOne: '-97.4111604, 35.4653761',
@@ -50,11 +50,11 @@ class TippingPoint extends React.Component {
       const vanFuelCalculator = (this.state.totalMiles / KEY_NUMBERS.VAN_MPG) * KEY_NUMBERS.VAN_FUEL_COST;
       const laborCalculator = ((KEY_NUMBERS.HOURLY_FEE * calculateHours) * this.state.drivers);
       const vanCalculator = laborCalculator + vanFuelCalculator + hotelTotalCost + mealCalculator;
-      const rentalCostCalculator = (KEY_NUMBERS.ENTERPRISE_DAILY_FEE * (drivingDaysCalculator + this.state.rentalPaddingDay)) + 
+      const rental26CostCalculator = (KEY_NUMBERS.ENTERPRISE_26_DAILY_FEE * (drivingDaysCalculator + this.state.rentalPaddingDay)) + 
                          (KEY_NUMBERS.ENTERPRISE_ROADSIDE_DAILY * (drivingDaysCalculator + this.state.rentalPaddingDay)) + 
                          (KEY_NUMBERS.ENTERPRISE_MILEAGE_CHARGE * (this.state.totalMiles + KEY_NUMBERS.ROUND_TRIP_WAREHOUSE_ENTERPRISE))
-      const truckFuelCalculator = ((this.state.totalMiles / KEY_NUMBERS.TRUCK_MPG) * KEY_NUMBERS.TRUCK_FUEL_COST);
-      const truckCalculator =  rentalCostCalculator + mealCalculator + laborCalculator + truckFuelCalculator + hotelTotalCost;
+      const truck26FuelCalculator = ((this.state.totalMiles / KEY_NUMBERS.TRUCK_26_MPG) * KEY_NUMBERS.TRUCK_FUEL_COST);
+      const truck26Calculator =  rental26CostCalculator + mealCalculator + laborCalculator + truck26FuelCalculator + hotelTotalCost;
       
       var newState = {
         drivingDays: drivingDaysCalculator,
@@ -66,9 +66,9 @@ class TippingPoint extends React.Component {
         vanFuelCost: vanFuelCalculator,
         laborCost: laborCalculator,
         vanTotal: vanCalculator,
-        truckTotal: truckCalculator,
-        rentalCost: rentalCostCalculator,
-        truckFuel: truckFuelCalculator
+        truck26Total: truck26Calculator,
+        rental26Cost: rental26CostCalculator,
+        truck26Fuel: truck26FuelCalculator
       }
       this.setState(newState);
       console.log(laborCalculator);
@@ -161,7 +161,7 @@ class TippingPoint extends React.Component {
                       <p>Truck Trip Total</p>
                       {/* add radio button for 2 day and 1 day truck return period */}
                         <p>
-                          ${this.state.truckTotal.toFixed(2)}
+                          ${this.state.truck26Total.toFixed(2)}
                         </p>
                     </div>
                     </div>
@@ -177,8 +177,8 @@ class TippingPoint extends React.Component {
                         <p>hours         {this.state.hours}</p>
                         <p>Labor cost       ${this.state.laborCost}</p>
                         <p>Van Fuel cost     ${this.state.vanFuelCost.toFixed(2)}</p>
-                        <p>Rental Fees      ${this.state.rentalCost.toFixed(2)}</p>
-                        <p>Truck Fuel Cost    ${this.state.truckFuel.toFixed(2)}</p>
+                        <p>Rental Fees      ${this.state.rental26Cost.toFixed(2)}</p>
+                        <p>Truck Fuel Cost    ${this.state.truck26Fuel.toFixed(2)}</p>
                       </div>
                     </div>    
                 </form>
