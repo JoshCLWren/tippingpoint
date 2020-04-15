@@ -23,7 +23,7 @@ const PRESETS = {
     nor: 40,
     okc: 24,
     omh: 954,
-    opk: 33,
+    opk: 668,
     ows: 660,
     rga: 437,
     rrn: 1131,

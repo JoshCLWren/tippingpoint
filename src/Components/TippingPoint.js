@@ -127,10 +127,10 @@ class TippingPoint extends React.Component {
                         defaultValue="0"
                         onChange={this.onTotalMileChange}/>
                     </div>
-                    <div>
+                    {/* <div>
                       <p>Trip Builder</p>
                         <CustomTrip locationOne={this.state.locationOne} locationTwo={this.state.locationTwo} onLocationOneChange={this.onLocationOneChange} onLocationTwoChange={this.onLocationTwoChange}/>>
-                    </div>
+                    </div> */}
                     <div>
                       <p>Total Drivers</p>
                         <input
