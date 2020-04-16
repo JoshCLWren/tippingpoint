@@ -150,16 +150,13 @@ class TippingPoint extends React.Component {
                     </div> */}
                     <div>
                       <p>Total Drivers</p>
-                        <input
-                          type="number"
-                          name="drivers"
-                          defaultValue="1"
-                          onChange={this.onDriversChange}
-                        />
-                        
+                        <select value={this.state.drivers} onChange={this.onDriversChange}>
+                          <option value="1">1</option>
+                          <option value="2">2</option>
+                        </select>
                     </div>
                     <div>
-                      <p>Adjust the Rental Padding Day? It is currently {this.state.rentalPaddingDay}</p>
+                      <p>Adjust the Rental Padding Day or add extra days to truck rental?</p>
                       <input 
                         type="number"
                         name="rentalPaddingDay"
