@@ -160,6 +160,7 @@ class TippingPoint extends React.Component {
                       <input 
                         type="number"
                         name="rentalPaddingDay"
+                        min="1"
                         defaultValue="1"
                         onChange={this.onRentalPaddingDay}                      
                       />
