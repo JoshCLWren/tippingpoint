@@ -142,6 +142,7 @@ class TippingPoint extends React.Component {
                         type="number"
                         name="totalMiles"
                         defaultValue="0"
+                        min="1"
                         onChange={this.onTotalMileChange}/>
                     </div>
                     {/* <div>
