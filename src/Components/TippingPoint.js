@@ -156,6 +156,7 @@ class TippingPoint extends React.Component {
                           defaultValue="1"
                           onChange={this.onDriversChange}
                         />
+                        
                     </div>
                     <div>
                       <p>Adjust the Rental Padding Day? It is currently {this.state.rentalPaddingDay}</p>
