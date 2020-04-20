@@ -1,25 +1,51 @@
-function gasPrices(){
-var data = null;
-
-var xhr = new XMLHttpRequest();
-xhr.withCredentials = true;
-
-xhr.addEventListener("readystatechange", function () {
-  if (this.readyState === this.DONE) {
-    console.log(this.responseText);
-  }
-});
-
-xhr.open("GET", "https://api.collectapi.com/gasPrice/stateUsaPrice?state=OK");
-xhr.setRequestHeader("content-type", "application/json");
-xhr.setRequestHeader("authorization", "apikey 6vjOawSf4Vpge2UVbZjfks:5jknEs6yNGdo8yvmsi97op");
-
-xhr.send(data);
-console.log(data.regular);
-vanFuelCost = data.regular;
-
-return data.regular
-};
+import React, { useState, useEffect } from 'react'
 
 
-export gasPrices;
+    const GasPrices = ({ locationOne, locationTwo, onLocationOneChange, onLocationTwoChange, onTotalMilesComputed }) => {
+        
+            async function fetchDistance()
+            {
+                const res = await fetch("https://api.mapbox.com/directions-matrix/v1/mapbox/driving/" + locationOne + ";" + locationTwo + "?sources=1&annotations=distance&access_token=pk.eyJ1Ijoiam9zaGlzcGx1dGFyIiwiYSI6ImNqeTZwNGF1ODAxa2IzZHA2Zm9iOWNhNXYifQ.X0D2p9KD-IXd7keb199nbg")
+                const mapBoxObject = await res.json()
+                
+                
+                const meters = mapBoxObject.distances[0];
+                const miles = parseInt(meters) *  0.00062137119;
+                onTotalMilesComputed(miles.toFixed(2));
+                console.log(miles.toFixed(2));
+                
+                
+            }         
+            
+        useEffect(() => {
+            fetchDistance()
+        }, [locationOne, locationTwo])
+
+      return (
+        <div>
+          <h3>Customize your trip</h3>
+            Mileage will be calculated as a round trip.
+            <br/>
+            Select your starting point
+            <select value={locationOne} onChange={onLocationOneChange}>
+            {
+                Object.entries(COORDS).map(([campus, longLatt]) => (
+                <option key={campus} value={longLatt}>
+                {campus}
+                </option>
+            ))}
+            </select>
+            Select your destination
+            <select value={locationTwo} onChange={onLocationTwoChange}>
+            {
+                Object.entries(COORDS).map(([campus, longLatt]) => (
+                <option key={campus} value={longLatt}>
+                {campus}
+                </option>
+            ))}
+            </select>
+        </div>
+      )
+    };
+
+export default CustomTrip;

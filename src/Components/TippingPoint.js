@@ -29,8 +29,10 @@ class TippingPoint extends React.Component {
         truck16Fuel: 0,
         rentalPaddingDay: 1,
         trip: "Custom",
-        locationOne: '-97.4111604, 35.4653761',
-        locationTwo: '-73.778716, 42.740913'       
+        locationOne: '-97.4111604,35.4653761',
+        locationTwo: '-73.778716,42.740913',
+        gas: 0,
+        diesel: 0       
       }
 
       
@@ -41,6 +43,7 @@ class TippingPoint extends React.Component {
       this.onRentalPaddingDay.bind(this);
       this.onLocationOneChange.bind(this);
       this.onLocationTwoChange.bind(this);
+      this.onTotalMilesComputed.bind(this);
     }  
 
     calculateTotals = () =>{
@@ -107,6 +110,9 @@ class TippingPoint extends React.Component {
     onLocationTwoChange = (event) => {
       this.setState({locationTwo: event.target.value}, this.calculateTotals)
     }
+    onTotalMilesComputed = (totalMiles, value) => {
+      this.setState({totalMiles: value * 2 }, this.calculateTotals)
+    }
 
     render(){
 
@@ -123,7 +129,7 @@ class TippingPoint extends React.Component {
                   <div className="column">
                   <div>
                     <label>
-                    Select your trip:
+                    <h3>Select a preset for your trip:</h3>
                       <select value={this.state.totalMiles} onChange={this.onTotalMileChange}>
                         <option value="0">Custom Trip</option>
                         {
@@ -137,7 +143,7 @@ class TippingPoint extends React.Component {
                   </div>
                   <div>
                     <div>
-                      <p>Enter Miles For a Custom Trip</p>
+                      <h3>Enter Miles For a Custom Trip</h3>
                       <input 
                         type="number"
                         name="totalMiles"
@@ -145,10 +151,12 @@ class TippingPoint extends React.Component {
                         min="1"
                         onChange={this.onTotalMileChange}/>
                     </div>
-                    {/* <div>
+                    <div>
                       <p>Trip Builder</p>
-                        <CustomTrip locationOne={this.state.locationOne} locationTwo={this.state.locationTwo} onLocationOneChange={this.onLocationOneChange} onLocationTwoChange={this.onLocationTwoChange}/>>
-                    </div> */}
+                          <CustomTrip totalMiles={this.state.totalMiles} locationOne={this.state.locationOne} 
+                          locationTwo={this.state.locationTwo} onLocationOneChange={this.onLocationOneChange} 
+                          onLocationTwoChange={this.onLocationTwoChange} onTotalMilesComputed={this.onTotalMilesComputed.bind(this, "totalMiles")}/>
+                    </div>
                     <div>
                       <p>Total Drivers</p>
                         <select value={this.state.drivers} onChange={this.onDriversChange}>
@@ -201,8 +209,8 @@ class TippingPoint extends React.Component {
                         <p>hours         {this.state.hours}</p>
                         <p>Labor cost       ${this.state.laborCost}</p>
                         <p>Van Fuel cost     ${this.state.vanFuelCost.toFixed(2)}</p>
-                        <p>Current Average Gas Price ${KEY_NUMBERS.VAN_FUEL_COST}</p>
-                        <p>Current Average Diesel Price ${KEY_NUMBERS.TRUCK_FUEL_COST}</p>
+                        <p>Current Average Gas Price ${this.state.gas}</p>
+                        <p>Current Average Diesel Price ${this.state.diesel}</p>
                         <p>Rental Fees For a 26 foot truck      ${this.state.rental26Cost.toFixed(2)}</p>
                         <p>Rental Fees For a 16 foot truck      ${this.state.rental16Cost.toFixed(2)}</p>
                         <p>Diesel Cost    ${this.state.truck26Fuel.toFixed(2)}</p>
