@@ -31,8 +31,8 @@ class TippingPoint extends React.Component {
         trip: "Custom",
         locationOne: '-97.4111604,35.4653761',
         locationTwo: '-73.778716,42.740913',
-        gas: 0,
-        diesel: 0       
+        gas: 1.5,
+        diesel: 1.5
       }
 
       
