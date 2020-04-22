@@ -13,7 +13,7 @@ import { COORDS } from "./coords";
                 const meters = mapBoxObject.distances[0];
                 const miles = parseInt(meters) *  0.00062137119;
                 onTotalMilesComputed(miles.toFixed(2));
-                // console.log(miles.toFixed(2));
+
                 
                 
             }         
