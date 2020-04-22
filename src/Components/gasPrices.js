@@ -1,51 +1,37 @@
 import React, { useState, useEffect } from 'react'
 
 
-    const GasPrices = ({ locationOne, locationTwo, onLocationOneChange, onLocationTwoChange, onTotalMilesComputed }) => {
+    const GasPrices = ({ gas, onGasPriceChange }) => {
         
-            async function fetchDistance()
+            async function fetchUnleaded()
             {
-                const res = await fetch("https://api.mapbox.com/directions-matrix/v1/mapbox/driving/" + locationOne + ";" + locationTwo + "?sources=1&annotations=distance&access_token=pk.eyJ1Ijoiam9zaGlzcGx1dGFyIiwiYSI6ImNqeTZwNGF1ODAxa2IzZHA2Zm9iOWNhNXYifQ.X0D2p9KD-IXd7keb199nbg")
-                const mapBoxObject = await res.json()
                 
-                
-                const meters = mapBoxObject.distances[0];
-                const miles = parseInt(meters) *  0.00062137119;
-                onTotalMilesComputed(miles.toFixed(2));
-                console.log(miles.toFixed(2));
-                
-                
+                const apiKey = "0e4c0b87a783c8a1201273b16dca2e5d";
+                const unleaded = await fetch("http://api.eia.gov/series/?api_key="+ apiKey +"&series_id=TOTAL.RUUCUUS.M")
+                const unleadedPriceHistory = await unleaded.json();
+                const gasArray = unleadedPriceHistory.series[0];
+                console.log(gasArray)
+                var gas = 1
+                // onGasPriceChange(1);
+
             }         
             
         useEffect(() => {
-            fetchDistance()
-        }, [locationOne, locationTwo])
+          
+            fetchUnleaded()
+        }, [])
 
       return (
         <div>
-          <h3>Customize your trip</h3>
-            Mileage will be calculated as a round trip.
-            <br/>
-            Select your starting point
-            <select value={locationOne} onChange={onLocationOneChange}>
-            {
-                Object.entries(COORDS).map(([campus, longLatt]) => (
-                <option key={campus} value={longLatt}>
-                {campus}
-                </option>
-            ))}
-            </select>
-            Select your destination
-            <select value={locationTwo} onChange={onLocationTwoChange}>
-            {
-                Object.entries(COORDS).map(([campus, longLatt]) => (
-                <option key={campus} value={longLatt}>
-                {campus}
-                </option>
-            ))}
-            </select>
+            <input 
+              type="number"
+              name="gas"
+              min="0"
+              defaultValue={gas}
+              onChange={onGasPriceChange}                      
+            />
         </div>
       )
     };
 
-export default CustomTrip;
+export default GasPrices;

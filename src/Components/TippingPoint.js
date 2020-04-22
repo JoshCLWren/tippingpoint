@@ -3,6 +3,7 @@ import "./main.css";
 import {KEY_NUMBERS} from "./keyValues";
 import {PRESETS} from "./presets";
 import CustomTrip from "./mapBoxAPI";
+import GasPrices from "./gasPrices";
 
 class TippingPoint extends React.Component {
     constructor(props) {
@@ -44,6 +45,7 @@ class TippingPoint extends React.Component {
       this.onLocationOneChange.bind(this);
       this.onLocationTwoChange.bind(this);
       this.onTotalMilesComputed.bind(this);
+      this.onGasPriceChange.bind(this);
     }  
 
     calculateTotals = () =>{
@@ -53,7 +55,7 @@ class TippingPoint extends React.Component {
       const drivingDaysCalculator = Math.ceil(this.state.totalMiles / KEY_NUMBERS.DAILY_MILE_LIMIT);
       const hotelNightCalculator = drivingDaysCalculator - 1;
       const hotelTotalCost = KEY_NUMBERS.HOTEL_COST * hotelNightCalculator;
-      const vanFuelCalculator = (this.state.totalMiles / KEY_NUMBERS.VAN_MPG) * KEY_NUMBERS.VAN_FUEL_COST;
+      const vanFuelCalculator = (this.state.totalMiles / KEY_NUMBERS.VAN_MPG) * this.state.gas;
       const laborCalculator = ((KEY_NUMBERS.HOURLY_FEE * calculateHours) * this.state.drivers);
       const vanCalculator = laborCalculator + vanFuelCalculator + hotelTotalCost + mealCalculator;
       const totalRentalDaysCalculator = drivingDaysCalculator + this.state.rentalPaddingDay;
@@ -113,11 +115,18 @@ class TippingPoint extends React.Component {
     onTotalMilesComputed = (totalMiles, value) => {
       this.setState({totalMiles: value * 2 }, this.calculateTotals)
     }
+    onGasPriceChange = (gas, value) => {
+      this.setState({gas: value}, this.calculateTotals)
+    }
+    onDieselPriceChange = (diesel, value) => {
+      this.setState({diesel: value}, this.calculateTotals)
+    }
 
     render(){
 
 
       // pad truck trip miles by round trip total for picking up and returning truck
+      
       return (
             <div className="wrapper">
               <div className="header">
@@ -209,8 +218,28 @@ class TippingPoint extends React.Component {
                         <p>hours         {this.state.hours}</p>
                         <p>Labor cost       ${this.state.laborCost}</p>
                         <p>Van Fuel cost     ${this.state.vanFuelCost.toFixed(2)}</p>
-                        <p>Current Average Gas Price ${this.state.gas}</p>
-                        <p>Current Average Diesel Price ${this.state.diesel}</p>
+                        <p>Current Average Gas Price $
+                          <div>
+                            <input 
+                              type="number"
+                              name="gas"
+                              min="0"
+                              defaultValue={this.state.gas}
+                              onChange={this.onGasPriceChange}                      
+                            />
+                          </div>
+                        </p>  
+                        <p>Current Average Diesel Price $
+                          <div>
+                            <input 
+                              type="number"
+                              name="diesel"
+                              min="0"
+                              defaultValue={this.state.diesel}
+                              onChange={this.onDieselPriceChange}                      
+                            />
+                          </div>
+                          </p>
                         <p>Rental Fees For a 26 foot truck      ${this.state.rental26Cost.toFixed(2)}</p>
                         <p>Rental Fees For a 16 foot truck      ${this.state.rental16Cost.toFixed(2)}</p>
                         <p>Diesel Cost    ${this.state.truck26Fuel.toFixed(2)}</p>
