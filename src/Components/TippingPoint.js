@@ -4,6 +4,7 @@ import {KEY_NUMBERS} from "./keyValues";
 import {PRESETS} from "./presets";
 import CustomTrip from "./mapBoxAPI";
 import GasPrices from "./gasPrices";
+import DieselPrices from "./dieselPrices";
 
 class TippingPoint extends React.Component {
     constructor(props) {
@@ -32,8 +33,8 @@ class TippingPoint extends React.Component {
         trip: "Custom",
         locationOne: '-97.4111604,35.4653761',
         locationTwo: '-73.778716,42.740913',
-        gas: 1.5,
-        diesel: 1.5
+        gas: 2.465,
+        diesel: 2.91
       }
 
       
@@ -46,6 +47,9 @@ class TippingPoint extends React.Component {
       this.onLocationTwoChange.bind(this);
       this.onTotalMilesComputed.bind(this);
       this.onGasPriceChange.bind(this);
+      this.onGasPriceCompute.bind(this);
+      this.onDieselPriceChange.bind(this);
+      this.onDieselPriceCompute.bind(this);
     }  
 
     calculateTotals = () =>{
@@ -93,7 +97,7 @@ class TippingPoint extends React.Component {
         rental16Cost: rental16CostCalculator
       }
       this.setState(newState);
-      console.log(laborCalculator);
+      
     };
 
 
@@ -118,9 +122,16 @@ class TippingPoint extends React.Component {
     onGasPriceChange = (gas, value) => {
       this.setState({gas: value}, this.calculateTotals)
     }
+    onGasPriceCompute = (event) => {
+      this.setState({gas: parseInt(event.target.value)}, this.calculateTotals)
+    }
     onDieselPriceChange = (diesel, value) => {
       this.setState({diesel: value}, this.calculateTotals)
     }
+    onDieselPriceCompute = (event) => {
+      this.setState({diesel: parseInt(event.target.value)}, this.calculateTotals)
+    }
+
 
     render(){
 
@@ -218,28 +229,36 @@ class TippingPoint extends React.Component {
                         <p>hours         {this.state.hours}</p>
                         <p>Labor cost       ${this.state.laborCost}</p>
                         <p>Van Fuel cost     ${this.state.vanFuelCost.toFixed(2)}</p>
-                        <p>Current Average Gas Price $
-                          <div>
-                            <input 
-                              type="number"
-                              name="gas"
-                              min="0"
-                              defaultValue={this.state.gas}
-                              onChange={this.onGasPriceChange}                      
-                            />
+                        <p>Last Month's National Average Gas Price $
+                          
+                            <GasPrices gas={this.state.gas} onGasPriceChange={this.onGasPriceChange.bind(this, "gas")}/>
+                            <div>
+                              Gas Price Override
+                              <input 
+                                type="number"
+                                name="gas"
+                                min="0"
+                                defaultValue={this.state.gas}
+                                onChange={this.onGasPriceCompute}                      
+                              />
                           </div>
+                          
                         </p>  
-                        <p>Current Average Diesel Price $
-                          <div>
-                            <input 
-                              type="number"
-                              name="diesel"
-                              min="0"
-                              defaultValue={this.state.diesel}
-                              onChange={this.onDieselPriceChange}                      
-                            />
+                        <p>Last Month's National Average Diesel Price $
+                          
+                            <DieselPrices diesel={this.state.diesel} onDieselPriceChange={this.onDieselPriceChange.bind(this, "diesel")}/>
+                            <div>
+                              Diesel Price Override
+                              <input 
+                                type="number"
+                                name="diesel"
+                                min="0"
+                                defaultValue={this.state.diesel}
+                                onChange={this.onDieselPriceCompute}                      
+                              />
                           </div>
-                          </p>
+                          
+                        </p>  
                         <p>Rental Fees For a 26 foot truck      ${this.state.rental26Cost.toFixed(2)}</p>
                         <p>Rental Fees For a 16 foot truck      ${this.state.rental16Cost.toFixed(2)}</p>
                         <p>Diesel Cost    ${this.state.truck26Fuel.toFixed(2)}</p>
