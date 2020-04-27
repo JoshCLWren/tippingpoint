@@ -116,7 +116,8 @@ class TippingPoint extends React.Component {
     onLocationTwoChange = (event) => {
       this.setState({locationTwo: event.target.value}, this.calculateTotals)
     }
-    onTotalMilesComputed = (totalMiles, value) => {
+    onTotalMilesComputed = (value) => {
+      console.log(value);
       this.setState({totalMiles: value * 2 }, this.calculateTotals)
     }
     onGasPriceChange = (gas, value) => {
@@ -141,8 +142,10 @@ class TippingPoint extends React.Component {
       return (
             <div className="wrapper">
               <div className="header">
-                <div><h1>Trip Calculator</h1></div>
-                <div><h2>'The Tipping Point'</h2></div>
+                <div className="hero-text">
+                  <div><h1>Trip Calculator</h1></div>
+                  <div><h2>'The Tipping Point'</h2></div>
+                </div>
               </div>
               <div>
                 <form>
@@ -175,17 +178,17 @@ class TippingPoint extends React.Component {
                       <p>Trip Builder</p>
                           <CustomTrip totalMiles={this.state.totalMiles} locationOne={this.state.locationOne} 
                           locationTwo={this.state.locationTwo} onLocationOneChange={this.onLocationOneChange} 
-                          onLocationTwoChange={this.onLocationTwoChange} onTotalMilesComputed={this.onTotalMilesComputed.bind(this, "totalMiles")}/>
+                          onLocationTwoChange={this.onLocationTwoChange} onTotalMilesComputed={this.onTotalMilesComputed}/>
                     </div>
                     <div>
-                      <p>Total Drivers</p>
+                      <h3>Total Drivers</h3>
                         <select value={this.state.drivers} onChange={this.onDriversChange}>
                           <option value="1">1</option>
                           <option value="2">2</option>
                         </select>
                     </div>
                     <div>
-                      <p>Adjust the Rental Padding Day or add extra days to truck rental?</p>
+                      <h4>Adjust the Rental Padding Day or add extra days to truck rental?</h4>
                       <input 
                         type="number"
                         name="rentalPaddingDay"
@@ -196,23 +199,23 @@ class TippingPoint extends React.Component {
                     </div>
                     </div>
                     <div>
-                     <div >
+                     <div>
                         <p>Van Trip Total</p>
-                          <p>
+                        <p className="total">
                           ${this.state.vanTotal.toFixed(2)}
                           </p>
                       </div> 
                     <div>
                       <p>26 Foot Rental Truck Trip Total</p>
                       {/* add radio button for 2 day and 1 day truck return period */}
-                        <p>
+                        <p className="total">
                           ${this.state.truck26Total.toFixed(2)}
                         </p>
                     </div>
                     <div>
                       <p>16 Foot Rental Truck Trip Total</p>
                       {/* add radio button for 2 day and 1 day truck return period */}
-                        <p>
+                        <p className="total">
                           ${this.state.truck16Total.toFixed(2)}
                         </p>
                     </div>

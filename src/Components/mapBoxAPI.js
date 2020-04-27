@@ -12,6 +12,7 @@ import { COORDS } from "./coords";
                 
                 const meters = mapBoxObject.distances[0];
                 const miles = parseInt(meters) *  0.00062137119;
+                console.log(miles.toFixed(2));
                 onTotalMilesComputed(miles.toFixed(2));
 
                 
@@ -21,6 +22,7 @@ import { COORDS } from "./coords";
         useEffect(() => {
             fetchDistance()
         }, [locationOne, locationTwo])
+        console.log(COORDS);
 
       return (
         <div>
