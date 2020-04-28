@@ -3,10 +3,17 @@ import "./main.css";
 import {KEY_NUMBERS} from "./keyValues";
 import {PRESETS} from "./presets";
 import CustomTrip from "./mapBoxAPI";
+<<<<<<< Updated upstream
+=======
+import GasPrices from "./gasPrices";
+import DieselPrices from "./dieselPrices";
+import { MileConsumer } from "./MileProvider";
+>>>>>>> Stashed changes
 
 class TippingPoint extends React.Component {
     constructor(props) {
       super(props);
+<<<<<<< Updated upstream
       this.state = {
         totalMiles: 0,
         hotelCost: 0,
@@ -32,6 +39,8 @@ class TippingPoint extends React.Component {
         locationOne: '-97.4111604, 35.4653761',
         locationTwo: '-73.778716, 42.740913'       
       }
+=======
+>>>>>>> Stashed changes
 
       
 
@@ -113,6 +122,7 @@ class TippingPoint extends React.Component {
 
       // pad truck trip miles by round trip total for picking up and returning truck
       return (
+<<<<<<< Updated upstream
             <div className="wrapper">
               <div className="header">
                 <div><h1>Trip Calculator</h1></div>
@@ -153,9 +163,35 @@ class TippingPoint extends React.Component {
                         <select value={this.state.drivers} onChange={this.onDriversChange}>
                           <option value="1">1</option>
                           <option value="2">2</option>
+=======
+            <MileConsumer>
+              <div className="wrapper">
+                <div className="header">
+                  <div className="hero-text">
+                    <div><h1>Trip Calculator</h1></div>
+                    <div><h2>'The Tipping Point'</h2></div>
+                  </div>
+                </div>
+                <div>
+                  <form>
+                    <div className="column">
+                    <div>
+                      <label>
+                      <h3>Select a preset for your trip:</h3>
+                        <select value={this.state.totalMiles} onChange={this.onTotalMileChange}>
+                          <option value="0">Custom Trip</option>
+                          {
+                            Object.entries(PRESETS).map(([campus, mileage]) => (
+                            <option key={campus} value={mileage}>
+                              {campus}
+                            </option>
+                          ))} 
+>>>>>>> Stashed changes
                         </select>
+                      </label>
                     </div>
                     <div>
+<<<<<<< Updated upstream
                       <p>Adjust the Rental Padding Day or add extra days to truck rental?</p>
                       <input 
                         type="number"
@@ -205,11 +241,114 @@ class TippingPoint extends React.Component {
                         <p>Rental Fees For a 26 foot truck      ${this.state.rental26Cost.toFixed(2)}</p>
                         <p>Rental Fees For a 16 foot truck      ${this.state.rental16Cost.toFixed(2)}</p>
                         <p>Diesel Cost    ${this.state.truck26Fuel.toFixed(2)}</p>
+=======
+                      <div>
+                        <h3>Enter Miles For a Custom Trip</h3>
+                        <input 
+                          type="number"
+                          name="totalMiles"
+                          defaultValue="0"
+                          min="1"
+                          onChange={this.onTotalMileChange}/>
                       </div>
-                    </div>    
-                </form>
+                      <div>
+                        <p>Trip Builder</p>
+                            <CustomTrip totalMiles={this.state.totalMiles} locationOne={this.state.locationOne} 
+                            locationTwo={this.state.locationTwo} onLocationOneChange={this.onLocationOneChange} 
+                            onLocationTwoChange={this.onLocationTwoChange} onTotalMilesComputed={this.onTotalMilesComputed}/>
+                      </div>
+                      <div>
+                        <h3>Total Drivers</h3>
+                          <select value={this.state.drivers} onChange={this.onDriversChange}>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                          </select>
+                      </div>
+                      <div>
+                        <h4>Adjust the Rental Padding Day or add extra days to truck rental?</h4>
+                        <input 
+                          type="number"
+                          name="rentalPaddingDay"
+                          min="1"
+                          defaultValue="1"
+                          onChange={this.onRentalPaddingDay}                      
+                        />
+                      </div>
+                      </div>
+                      <div>
+                       <div>
+                          <p>Van Trip Total</p>
+                          <p className="total">
+                            ${this.state.vanTotal.toFixed(2)}
+                            </p>
+                        </div> 
+                      <div>
+                        <p>26 Foot Rental Truck Trip Total</p>
+                        {/* add radio button for 2 day and 1 day truck return period */}
+                          <p className="total">
+                            ${this.state.truck26Total.toFixed(2)}
+                          </p>
+                      </div>
+                      <div>
+                        <p>16 Foot Rental Truck Trip Total</p>
+                        {/* add radio button for 2 day and 1 day truck return period */}
+                          <p className="total">
+                            ${this.state.truck16Total.toFixed(2)}
+                          </p>
+                      </div>
+>>>>>>> Stashed changes
+                      </div>
+                      </div>
+                      <div className="column">
+                        <div>
+                          <p>Total Miles of Trip  {this.state.totalMiles}</p>
+                          <p>Driving days      {this.state.drivingDays}</p>
+                          <p>Nights         {this.state.hotelNights}</p>
+                          <p>Hotel cost       ${this.state.hotelTotal}</p>
+                          <p>Meals         {this.state.meals}</p>
+                          <p>Meals Cost       ${this.state.mealCost}</p>
+                          <p>hours         {this.state.hours}</p>
+                          <p>Labor cost       ${this.state.laborCost}</p>
+                          <p>Van Fuel cost     ${this.state.vanFuelCost.toFixed(2)}</p>
+                          <p>Last Month's National Average Gas Price $
+                            
+                              <GasPrices gas={this.state.gas} onGasPriceChange={this.onGasPriceChange.bind(this, "gas")}/>
+                              <div>
+                                Gas Price Override
+                                <input 
+                                  type="number"
+                                  name="gas"
+                                  min="0"
+                                  defaultValue={this.state.gas}
+                                  onChange={this.onGasPriceCompute}                      
+                                />
+                            </div>
+                            
+                          </p>  
+                          <p>Last Month's National Average Diesel Price $
+                            
+                              <DieselPrices diesel={this.state.diesel} onDieselPriceChange={this.onDieselPriceChange.bind(this, "diesel")}/>
+                              <div>
+                                Diesel Price Override
+                                <input 
+                                  type="number"
+                                  name="diesel"
+                                  min="0"
+                                  defaultValue={this.state.diesel}
+                                  onChange={this.onDieselPriceCompute}                      
+                                />
+                            </div>
+                            
+                          </p>  
+                          <p>Rental Fees For a 26 foot truck      ${this.state.rental26Cost.toFixed(2)}</p>
+                          <p>Rental Fees For a 16 foot truck      ${this.state.rental16Cost.toFixed(2)}</p>
+                          <p>Diesel Cost    ${this.state.truck26Fuel.toFixed(2)}</p>
+                        </div>
+                      </div>    
+                  </form>
+                </div>
               </div>
-            </div>
+            </MileConsumer>
       )
     }
 }
