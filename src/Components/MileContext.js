@@ -1,8 +1,13 @@
-import React,{createContext} from 'react';
+import React,{useState, createContext} from 'react';
 
-const MileContext = createContext();
+export const MileContext = createContext();
 
-export const MileConsumer = MileContext.Consumer;
+export const MileProvider = props => {
+    const [totalMiles, setTotalMiles] = useState(0);
 
-export default MileContext;
-
+    return (
+        <MileContext.Provider value = {[totalMiles, setTotalMiles]}>
+            {props.children}    
+        </MileContext.Provider>
+    )
+}

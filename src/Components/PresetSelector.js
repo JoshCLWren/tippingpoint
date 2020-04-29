@@ -1,17 +1,21 @@
-import React, {useContext} from 'react';
+import React, {useState, useContext} from 'react';
 import "./main.css";
 import {PRESETS} from "./presets";
-import { MileConsumer } from './MileProvider';
+import { MileContext } from './MileContext';
 
 
-const PresetSelector = ({context}) => {
-    const context = useContext(MileConsumer);
+const PresetSelector = () => {
+    const [totalMiles, setTotalMiles] = useContext(MileContext);
+    const onTotalMileChange = (event) => {
+        setTotalMiles(event.target.value)    
+      };
+
     return(
-        <MileConsumer>
+
             <div>
                 <label>
                     <h3>Select a preset for your trip (these are round trips from the warehouse and back)</h3>
-                    <select value={this.state.totalMiles} onChange={this.onTotalMileChange}>
+                    <select value={setTotalMiles} onChange={onTotalMileChange}>
                         <option value="0">Custom Trip</option>
                         {
                         Object.entries(PRESETS).map(([campus, mileage]) => (
@@ -21,8 +25,9 @@ const PresetSelector = ({context}) => {
                         ))} 
                     </select>
                 </label>
+                trip total miles = {totalMiles}
             </div>
-        </MileConsumer>
+
     )
 }
 
