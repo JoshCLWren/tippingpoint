@@ -3,16 +3,19 @@ import './Components/main.css';
 import {MileProvider} from "./Components/MileContext";
 import Header from "./Components/Header";
 import PresetSelector from "./Components/PresetSelector";
+import TotalDrivers from './Components/TotalDrivers';
 
 function App() {
 
 
   return (
     <MileProvider>
-      <div>
+
       <Header />
+      <form>
       <PresetSelector />
-      </div>
+      <TotalDrivers />
+      </form>
     </MileProvider>
   );
 }

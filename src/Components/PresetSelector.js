@@ -5,7 +5,7 @@ import { MileContext } from './MileContext';
 
 
 const PresetSelector = () => {
-    const [totalMiles, setTotalMiles] = useContext(MileContext);
+    const {totalMiles, setTotalMiles} = useContext(MileContext);
     const onTotalMileChange = (event) => {
         setTotalMiles(event.target.value)    
       };
@@ -15,7 +15,7 @@ const PresetSelector = () => {
             <div>
                 <label>
                     <h3>Select a preset for your trip (these are round trips from the warehouse and back)</h3>
-                    <select value={setTotalMiles} onChange={onTotalMileChange}>
+                    <select onChange={onTotalMileChange}>
                         <option value="0">Custom Trip</option>
                         {
                         Object.entries(PRESETS).map(([campus, mileage]) => (
