@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useContext} from "react";
 import "./main.css";
 import {KEY_NUMBERS} from "./keyValues";
 import {PRESETS} from "./presets";
@@ -10,6 +10,28 @@ export const CalculateTotals = () =>{
         const {totalMiles, setTotalMiles} = useContext(MileContext);
         const {drivers, setDrivers} = useContext(MileContext);
         const {rentalPaddingDay, setRentalPaddingDay} = useContext(MileContext);
+        const {hotelCost, setHotelCost} = useContext(MileContext);
+        const {hotelDays, setHotelDays} = useContext(MileContext);
+        const {hotelTotal, setHotelTotal} = useContext(MileContext);
+        const {drivingDays, setDrivingDays} = useContext(MileContext);
+        const {hours, setHours} = useContext(MileContext);
+        const {meals, setMeals} = useContext(MileContext);
+        const {laborCost, setLaborCost} = useContext(MileContext);
+        const {truck26Total, setTruck26Total} = useContext(MileContext);
+        const {truck16Total, setTruck16Total} = useContext(MileContext);
+        const {vanTotal, setVanTotal} = useContext(MileContext);
+        const {mealCost, setMealCost} = useContext(MileContext);
+        const {vanFuelCost, setVanFuelCost} = useContext(MileContext);
+        const {rental26Cost, setRental26Cost} = useContext(MileContext);
+        const {rental16Cost, setRental16Cost} = useContext(MileContext);
+        const {truck26Fuel, setTruck26Fuel} = useContext(MileContext);
+        const {truck16Fuel, setTruck16Fuel} = useContext(MileContext);
+        const {trip, setTrip} = useContext(MileContext);
+        const {locationOne, setLocationOne} = useContext(MileContext);
+        const {locationTwo, setLocationTwo} = useContext(MileContext);
+        const {gas, setGas} = useContext(MileContext);
+        const {diesel, setDiesel} = useContext(MileContext);
+        
         const calculateHours = Math.round(totalMiles / 75);
         const howManyMeals = Math.round(totalMiles / 300);
         const mealCalculator = (howManyMeals * KEY_NUMBERS.AVG_MEAL_PRICE) * drivers;
@@ -35,24 +57,23 @@ export const CalculateTotals = () =>{
         const truck16FuelCalculator = ((totalMiles / KEY_NUMBERS.TRUCK_16_MPG) * KEY_NUMBERS.TRUCK_FUEL_COST);
         const truck16Calculator =  rental16CostCalculator + mealCalculator + laborCalculator + truck16FuelCalculator + hotelTotalCost;
         
-        var newState = {
-        drivingDays: drivingDaysCalculator,
-        hours: calculateHours,
-        meals: howManyMeals,
-        mealCost: mealCalculator,
-        hotelNights: hotelNightCalculator,
-        hotelTotal: hotelTotalCost,
-        vanFuelCost: vanFuelCalculator,
-        laborCost: laborCalculator,
-        vanTotal: vanCalculator,
-        truck26Total: truck26Calculator,
-        rental26Cost: rental26CostCalculator,
-        truck26Fuel: truck26FuelCalculator,
-        truck16Total: truck16Calculator,
-        rental16Total: rental16CostCalculator,
-        truck16Fuel: truck16FuelCalculator,
-        rental16Cost: rental16CostCalculator
-        }
-        this.setState(newState);
-        console.log(laborCalculator);
+        
+        setDrivingDays(drivingDaysCalculator)
+        setHours(calculateHours)
+        setMeals(howManyMeals)
+        setMealCost(mealCalculator)
+        setHotelDays(hotelNightCalculator)
+        setHotelTotal(hotelTotalCost)
+        setVanFuelCost(vanFuelCalculator)
+        setLaborCost(laborCalculator)
+        setVanTotal(vanCalculator)
+
+        setTruck26Total(truck26Calculator)
+        setTruck26Fuel(truck26FuelCalculator)
+        setRental26Cost(rental26CostCalculator)
+        
+        setTruck16Total(truck16Calculator)
+        setTruck16Fuel(truck16FuelCalculator)
+        setRental16Cost(rental16CostCalculator)
+        
     };
