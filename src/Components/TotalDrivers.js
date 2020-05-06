@@ -1,20 +1,18 @@
 import React, {useState, useContext} from 'react';
 import "./main.css";
-import { MileContext } from './MileContext';
+import { MileProvider, useMileState, useMileDispatch } from './MileContext';
 
 
 const TotalDrivers = () => {
-    const {drivers, setDrivers} = useContext(MileContext);
-    const onDriverChange = (event) => {
-        setDrivers(event.target.value)    
-      };
+    const {drivers} = useMileState()
+    const dispatch = useMileDispatch()
 
     return(
 
         <div>
             <p>Total Drivers</p>
             <label>
-            <select value={drivers} onChange={onDriverChange}>
+            <select value={drivers} onChange={(event) => dispatch({type: 'driversUpdate', payload: event.target.value})}>
                 <option value="1">1</option>
                 <option value="2">2</option>
             </select>

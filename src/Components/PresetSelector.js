@@ -1,27 +1,20 @@
-import React, {useState, useContext} from 'react';
+import React, {useState, useContext, useEffect} from 'react';
 import "./main.css";
 import {PRESETS} from "./presets";
-import { MileContext } from './MileContext';
-import {CalculateTotals} from "./CalculateTotals";
+import { MileProvider, useMileDispatch, useMileState } from './MileContext';
+// import {useCalculateTotals} from "./CalculateTotals";
 
 
 const PresetSelector = () => {
-    const {totalMiles, setTotalMiles, hotelCost, hotelDays, hotelTotal, drivingDays, drivers,
-            hours, meals, laborCost, truck26Total, truck16Total, vanTotal, mealCost, vanFuelCost,
-            rental26Cost, rental16Cost, truck26Fuel, truck16Fuel, rentalPaddingDay, trip, locationOne,
-            locationTwo, gas, diesel
-
-        } = useContext(MileContext);
-    const onTotalMileChange = (event) => {
-        setTotalMiles(event.target.value, CalculateTotals())    
-      };
-
+    
+    const {totalMiles} = useMileState()
+    const dispatch = useMileDispatch()
     return(
 
             <div>
                 <label>
                     <h3>Select a preset for your trip (these are round trips from the warehouse and back)</h3>
-                    <select onChange={onTotalMileChange}>
+                    <select onChange={(event) => dispatch({type: 'totalMilesUpdate', payload: event.target.value})}>
                         <option value="0">Custom Trip</option>
                         {
                         Object.entries(PRESETS).map(([campus, mileage]) => (
@@ -31,9 +24,10 @@ const PresetSelector = () => {
                         ))} 
                     </select>
                 </label>
-                trip total miles = {totalMiles}
+
                 <div>
-                    State Values--
+                <div>Trip total miles = {totalMiles}</div>
+                    {/* State Values--
                     totalMiles: {totalMiles},
                     hotelCost: {hotelCost},
                     hotelDays:  {hotelDays},
@@ -57,7 +51,7 @@ const PresetSelector = () => {
                     locationOne: {locationOne},
                     locationTwo: {locationTwo},
                     gas: {gas},
-                    diesel: {diesel}
+                    diesel: {diesel} */}
                 </div>
             </div>
 

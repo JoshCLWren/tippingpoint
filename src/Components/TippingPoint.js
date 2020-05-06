@@ -2,7 +2,7 @@ import React from "react";
 import "./main.css";
 import {KEY_NUMBERS} from "./keyValues";
 import {PRESETS} from "./presets";
-import CustomTrip from "./mapBoxAPI";
+import CustomTrip from "./CustomTrip";
 
 class TippingPoint extends React.Component {
 

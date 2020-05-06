@@ -4,6 +4,7 @@ import {MileProvider} from "./Components/MileContext";
 import Header from "./Components/Header";
 import PresetSelector from "./Components/PresetSelector";
 import TotalDrivers from './Components/TotalDrivers';
+import CustomTrip from "./Components/CustomTrip";
 
 function App() {
 
@@ -15,6 +16,7 @@ function App() {
       <form>
       <PresetSelector />
       <TotalDrivers />
+      <CustomTrip />
       </form>
     </MileProvider>
   );
