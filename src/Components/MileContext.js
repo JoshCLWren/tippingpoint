@@ -1,12 +1,20 @@
 import React,{useReducer, createContext} from 'react';
+import {KEY_NUMBERS} from "./keyValues";
 
 const MileStateContext = createContext();
 const MileDispatchContext = createContext();
 
+function calculateHours(totalMiles){
+    Math.round(totalMiles / 75)
+}
 function mileReducer(state, action) {
     switch (action.type) {
         case 'totalMilesUpdate': {
-            return {...state, totalMiles: action.payload}
+            return {...state, 
+                    totalMiles: action.payload, 
+                    hours: Math.round(action.payload / 75),
+                    howManyMeals: Math.round(action.payload / 300)
+                }
         }
         case 'driversUpdate': {
             return {...state, drivers: action.payload}
@@ -17,6 +25,9 @@ function mileReducer(state, action) {
         case 'locationTwoChange': {
             return {...state, locationTwo: action.payload}
         }
+        case "rentalPaddingDayChange": {
+            return {...state, rentalPaddingDay: action.payload}
+        }
         default: {
             throw new Error(`Unhandled action type: ${action.type}`)
           }
@@ -24,32 +35,43 @@ function mileReducer(state, action) {
 }
 
 function MileProvider({children}) {
-    const [state, dispatch] = useReducer(mileReducer, {totalMiles: 0, drivers: 1, locationOne: "-97.4111604,35.4653761", locationTwo: "-73.778716,42.740913"})
+    const [state, dispatch] = useReducer(mileReducer, 
+        {
+            totalMiles: 0, 
+            drivers: 1, 
+            locationOne: "-97.4111604,35.4653761", 
+            locationTwo: "-97.4111604,35.4653761",
+            rentalPaddingDay: 1,
+            hours: 0,
+            meals: 0,
+            mealCost: 0
 
-    // const [drivers, setDrivers] = useState(1);
-    // const [rentalPaddingDay, setRentalPaddingDay] = useState(1);
-    // const [hotelCost, setHotelCost] = useState(0);
-    // const [hotelDays, setHotelDays] = useState(0);
-    // const [hotelTotal, setHotelTotal] = useState(0);
-    // const [drivingDays, setDrivingDays] = useState(0);
-    // const [hotelNights, setHotelNights] = useState(0);
-    // const [hours, setHours] = useState(0);
-    // const [meals, setMeals] = useState(0);
-    // const [laborCost, setLaborCost] = useState(0);
-    // const [truck26Total, setTruck26Total] = useState(0);
-    // const [truck16Total, setTruck16Total] = useState(0);
-    // const [vanTotal, setVanTotal] = useState(0);
-    // const [mealCost, setMealCost] = useState(0);
-    // const [vanFuelCost, setVanFuelCost] = useState(0);
-    // const [rental26Cost, setRental26Cost] = useState(0);
-    // const [rental16Cost, setRental16Cost] = useState(0);
-    // const [truck26Fuel, setTruck26Fuel] = useState(0);
-    // const [truck16Fuel, setTruck16Fuel] = useState(0);
-    // const [trip, setTrip] = useState("Custom");
-    // const [locationOne, setLocationOne] = useState("-97.4111604,35.4653761");
-    // const [locationTwo, setLocationTwo] = useState("-73.778716,42.740913");
-    // const [gas, setGas] = useState(2.465);
-    // const [diesel, setDiesel] = useState(2.91);
+        })
+
+    // const [drivers, Drivers] = useState(1);
+    // const [rentalPaddingDay, RentalPaddingDay] = useState(1);
+    // const [hotelCost, HotelCost] = useState(0);
+    // const [hotelDays, HotelDays] = useState(0);
+    // const [hotelTotal, HotelTotal] = useState(0);
+    // const [drivingDays, DrivingDays] = useState(0);
+    // const [hotelNights, HotelNights] = useState(0);
+    // const [hours, Hours] = useState(0);
+    // const [meals, Meals] = useState(0);
+    // const [laborCost, LaborCost] = useState(0);
+    // const [truck26Total, Truck26Total] = useState(0);
+    // const [truck16Total, Truck16Total] = useState(0);
+    // const [vanTotal, VanTotal] = useState(0);
+    // const [mealCost, MealCost] = useState(0);
+    // const [vanFuelCost, VanFuelCost] = useState(0);
+    // const [rental26Cost, Rental26Cost] = useState(0);
+    // const [rental16Cost, Rental16Cost] = useState(0);
+    // const [truck26Fuel, Truck26Fuel] = useState(0);
+    // const [truck16Fuel, Truck16Fuel] = useState(0);
+    // const [trip, Trip] = useState("Custom");
+    // const [locationOne, LocationOne] = useState("-97.4111604,35.4653761");
+    // const [locationTwo, LocationTwo] = useState("-73.778716,42.740913");
+    // const [gas, Gas] = useState(2.465);
+    // const [diesel, Diesel] = useState(2.91);
 
     return (
         <MileStateContext.Provider value = {state}>

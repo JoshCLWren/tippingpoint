@@ -17,11 +17,12 @@ import { useMileDispatch, useMileState } from './MileContext';
                 console.log(mapBoxObject);
                 const meters = mapBoxObject.distances[0];
                 console.log(meters);
-                const miles = parseInt(meters) *  0.00062137119;
+                const miles = (parseInt(meters) *  0.00062137119);
+                const roundtrip = 2 * miles;
                 
                 console.log(miles.toFixed(2));
 
-                dispatch({type: 'totalMilesUpdate', payload: miles.toFixed(2)})
+                dispatch({type: 'totalMilesUpdate', payload: roundtrip.toFixed(2)})
                 
             }         
             
