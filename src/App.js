@@ -6,20 +6,30 @@ import PresetSelector from "./Components/PresetSelector";
 import TotalDrivers from './Components/TotalDrivers';
 import CustomTrip from "./Components/CustomTrip";
 import RentalPaddingDay from './Components/RentalPaddingDay';
+import CustomMiles from './Components/CustomMiles';
+import Totals from './Components/Totals'
+import DetailedExpenses from './Components/DetailedExpenses';
 
 function App() {
 
 
   return (
     <MileProvider>
-
       <Header />
-      <form>
-      <PresetSelector />
-      <TotalDrivers />
-      <CustomTrip />
-      <RentalPaddingDay />
-      </form>
+      <div className="column">
+        <form>
+        {/* <PresetSelector /> */}
+        <CustomTrip />
+        <CustomMiles />
+        <TotalDrivers />
+        <RentalPaddingDay />
+        <Totals />
+        </form>
+      </div>
+      <div className="column">  
+        
+        <DetailedExpenses />
+      </div>
     </MileProvider>
   );
 }

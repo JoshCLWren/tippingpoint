@@ -1,6 +1,8 @@
 import React, {useState, useContext} from 'react';
 import "./main.css";
 import { MileProvider, useMileState, useMileDispatch } from './MileContext';
+import {KEY_NUMBERS} from "./keyValues";
+
 
 
 const TotalDrivers = () => {
@@ -12,12 +14,13 @@ const TotalDrivers = () => {
         <div>
             <p>Total Drivers</p>
             <label>
-            <select value={drivers} onChange={(event) => dispatch({type: 'driversUpdate', payload: event.target.value})}>
+            <select value={parseInt(drivers)} onChange={(event) => dispatch({type: 'driversUpdate', payload: parseInt(event.target.value, 10)})}>
                 <option value="1">1</option>
                 <option value="2">2</option>
             </select>
             </label>
-            Drivers = {drivers}
+
+      
         </div>
     )
 }
