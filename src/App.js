@@ -20,7 +20,7 @@ function App() {
         <form>
         {/* <PresetSelector /> */}
         <CustomTrip />
-        <CustomMiles />
+        {/* <CustomMiles /> */}
         <TotalDrivers />
         <RentalPaddingDay />
         <Totals />
