@@ -14,7 +14,7 @@ const TotalDrivers = () => {
         <div>
             <p>Total Drivers</p>
             <label>
-            <select value={parseInt(drivers)} onChange={(event) => dispatch({type: 'driversUpdate', payload: parseInt(event.target.value, 10)})}>
+            <select value={parseInt(drivers)} onChange={(event) => dispatch({type: 'driversUpdate', payload: parseInt(event.target.value)})}>
                 <option value="1">1</option>
                 <option value="2">2</option>
             </select>

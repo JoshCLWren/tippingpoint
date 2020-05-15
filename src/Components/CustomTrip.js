@@ -46,6 +46,7 @@ import { useMileDispatch, useMileState } from './MileContext';
             </select>
             Select your destination
             <select value={locationTwo} onChange={(event) => dispatch({type: 'locationTwoChange', payload: event.target.value})}>
+          
             {
                 Object.entries(COORDS).map(([campus, coordinates]) => (
                 <option key={campus} value={coordinates}>

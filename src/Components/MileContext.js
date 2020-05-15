@@ -8,7 +8,7 @@ const initialState = {
     totalMiles: 0, 
     drivers: 1, 
     locationOne: "-97.4111604,35.4653761", 
-    locationTwo: "-97.4111604,35.4653761",
+    locationTwo: "-96.196788,41.2009873",
     rentalPaddingDay: 1,
     hours: 0,
     meals: 0,
@@ -50,6 +50,7 @@ function mileReducer(state, action, initialState) {
                     hotelTotalCost: KEY_NUMBERS.HOTEL_COST * (Math.ceil(action.payload / KEY_NUMBERS.DAILY_MILE_LIMIT) - 1),
                     vanFuelExpense: (action.payload / KEY_NUMBERS.VAN_MPG) * state.gas,
                     labor: ((KEY_NUMBERS.HOURLY_FEE * (Math.round(action.payload / 75))) * state.drivers),
+                    // vanTotal = labor + gas + hotel + meals
                     vanTotal: ((KEY_NUMBERS.HOURLY_FEE * (Math.round(action.payload / 75))) * state.drivers) + 
                                 ((action.payload / KEY_NUMBERS.VAN_MPG) * state.gas)
                                  + (KEY_NUMBERS.HOTEL_COST * (Math.ceil(action.payload / KEY_NUMBERS.DAILY_MILE_LIMIT) - 1)) + 
@@ -86,12 +87,15 @@ function mileReducer(state, action, initialState) {
         case 'driversUpdate': {
             return {...state, 
                     drivers: parseInt(action.payload),
+                    // mealsCost = (amount of estimated meals * avg meal price (10)) * drivers
                     mealCost: (state.meals * KEY_NUMBERS.AVG_MEAL_PRICE) * parseInt(action.payload),
+                    // labor = (hourly rate * estimated hours) * drivers
                     labor: (KEY_NUMBERS.HOURLY_FEE * state.hours) * parseInt(action.payload),
-                    vanTotal: ((KEY_NUMBERS.HOURLY_FEE * (Math.round(parseInt(action.payload) / 75))) * parseInt(action.payload)) + 
+                    // vanTotal = labor + gas + hotel + meals
+                    vanTotal: ((KEY_NUMBERS.HOURLY_FEE * state.hours) * parseInt(action.payload)) + 
                                 ((state.totalMiles / KEY_NUMBERS.VAN_MPG) * state.gas)
-                                 + (KEY_NUMBERS.HOTEL_COST * (Math.ceil(state.totalMiles / KEY_NUMBERS.DAILY_MILE_LIMIT) - 1)) + 
-                                 (((Math.round(parseInt(action.payload) / 300)) * KEY_NUMBERS.AVG_MEAL_PRICE) * parseInt(action.payload)),
+                                 + state.hotelTotalCost + 
+                                 ((state.mealCost) * parseInt(action.payload)),
                     truck26Total: ((KEY_NUMBERS.ENTERPRISE_26_DAILY_FEE * (((Math.ceil(state.totalMiles / KEY_NUMBERS.DAILY_MILE_LIMIT)) + action.payload)%7)) +
                         (KEY_NUMBERS.ENTERPRISE_26_WEEKLY_FEE * (Math.floor(((Math.ceil(state.totalMiles / KEY_NUMBERS.DAILY_MILE_LIMIT)) + action.payload)/7))) +  
                         (KEY_NUMBERS.ENTERPRISE_ROADSIDE_DAILY * ((Math.ceil(state.totalMiles / KEY_NUMBERS.DAILY_MILE_LIMIT)) + action.payload)) + 
@@ -152,10 +156,11 @@ function mileReducer(state, action, initialState) {
             return {...state,
                     gas: parseInt(action.payload),
                     vanFuelExpense: (state.totalMiles / KEY_NUMBERS.VAN_MPG) * parseInt(action.payload),
-                    vanTotal: ((KEY_NUMBERS.HOURLY_FEE * (Math.round(parseInt(state.drivers) / 75))) * parseInt(state.drivers)) + 
+                    // vanTotal = labor + gas + hotel + meals
+                    vanTotal: state.labor + 
                                 ((state.totalMiles / KEY_NUMBERS.VAN_MPG) * action.payload)
-                                 + (KEY_NUMBERS.HOTEL_COST * (Math.ceil(state.totalMiles / KEY_NUMBERS.DAILY_MILE_LIMIT) - 1)) + 
-                                 (((Math.round(parseInt(state.drivers) / 300)) * KEY_NUMBERS.AVG_MEAL_PRICE) * parseInt(state.drivers))
+                                 + state.hotelTotalCost + 
+                                 state.mealCost
         }}
         case "dieselOverride":{
             return {...state,
@@ -184,11 +189,12 @@ function mileReducer(state, action, initialState) {
                 hotelNights: action.payload - 1,
                 hotelTotalCost: KEY_NUMBERS.HOTEL_COST * (parseInt(action.payload) - 1),
                 labor: (KEY_NUMBERS.HOURLY_FEE * (8 * parseInt(action.payload)) * state.drivers),
+                // vanTotal = labor + gas + hotel + meals
                 vanTotal: ((KEY_NUMBERS.HOURLY_FEE * (8 * parseInt(action.payload)) * state.drivers) * state.drivers) + 
-                                ((state.totalMiles / KEY_NUMBERS.VAN_MPG) * state.gas)
+                                state.gas +
                                  + (KEY_NUMBERS.HOTEL_COST * (parseInt(action.payload) - 1)) + 
-                                 ((Math.round(action.payload / 2) * state.drivers)) * KEY_NUMBERS.AVG_MEAL_PRICE,
-                                 rentalDays: (Math.ceil(action.payload / KEY_NUMBERS.DAILY_MILE_LIMIT)) + state.rentalPaddingDay,
+                                 state.mealCost,
+                rentalDays: (Math.ceil(action.payload / KEY_NUMBERS.DAILY_MILE_LIMIT)) + state.rentalPaddingDay,
                 rentalWeeklyRate: (parseInt(action.payload) + state.rentalPaddingDay)/7,
                 rentalDailyRate: (parseInt(action.payload) + state.rentalPaddingDay)%7,
                 rental26Fees: (KEY_NUMBERS.ENTERPRISE_26_DAILY_FEE * ((parseInt(action.payload)+ state.rentalPaddingDay)%7)) +
