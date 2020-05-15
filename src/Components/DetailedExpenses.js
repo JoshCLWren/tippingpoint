@@ -49,9 +49,10 @@ const DetailedExpenses = () => {
                     <input 
                         type="number"
                         name="gas"
-                        min="0"
+                        min=".01"
                         defaultValue={gas}
-                        onChange={(event) => dispatch({type: 'gasOverride', payload: event.target.value})}                      
+                        step=".01"
+                        onChange={(event) => dispatch({type: 'gasOverride', payload: parseFloat(event.target.value)})}                      
                     />
                 </div>           
 
@@ -60,9 +61,10 @@ const DetailedExpenses = () => {
                     <input 
                         type="number"
                         name="diesel"
-                        min="0"
+                        min=".01"
                         defaultValue={diesel}
-                        onChange={(event) => dispatch({type: 'dieselOverride', payload: event.target.value})}                      
+                        step=".01"
+                        onChange={(event) => dispatch({type: 'dieselOverride', payload: parseFloat(event.target.value)})}                      
                     />
                 </div>
                 
