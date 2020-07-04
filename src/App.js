@@ -18,12 +18,13 @@ function App() {
       <Header />
       <div className="column">
         <form>
+        <Totals />
         {/* <PresetSelector /> */}
         <CustomTrip />
         {/* <CustomMiles /> */}
         <TotalDrivers />
         <RentalPaddingDay />
-        <Totals />
+        
         </form>
       </div>
       <div className="column">  

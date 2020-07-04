@@ -61,14 +61,3 @@ import { useMileDispatch, useMileState } from './MileContext';
 export default CustomTrip;
 
 
-//use fetch.then innstead of component did mount...
-// need %'s in url to urlize it or something work on that
-
-    // componentDidMount() {
-    //   fetch(`https://api.mapbox.com/directions-matrix/v1/mapbox/driving/${this.state.locationOne};${this.state.locationTwo}?sources=1&annotations=distance&access_token=pk.eyJ1Ijoiam9zaGlzcGx1dGFyIiwiYSI6ImNqeTZwNGF1ODAxa2IzZHA2Zm9iOWNhNXYifQ.X0D2p9KD-IXd7keb199nbg`)
-    //   .then(res => res.json())
-    //   .then((data) => {
-    //     this.setState({ totalMiles: data.distance[1].toFixed(0) })
-    //   })
-    //   .catch(console.log)
-    // };
