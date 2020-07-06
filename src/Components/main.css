@@ -7,14 +7,14 @@ html {
    height: 100%;
  }
 
- h1,h2 { 
-   font-family: Palatino, "Palatino Linotype", "Palatino LT STD", "Book Antiqua", Georgia, serif; 
-   font-size: 60px; font-style: normal; 
-   font-variant: normal; 
-   font-weight: 700; 
+ h1,h2 {
+   font-family: Palatino, "Palatino Linotype", "Palatino LT STD", "Book Antiqua", Georgia, serif;
+   font-size: 60px; font-style: normal;
+   font-variant: normal;
+   font-weight: 700;
    color: whitesmoke;
    text-shadow: 1px 1px #ddeafc;
-   
+
    /* line-height: 26.4px;  */
   }
 
@@ -24,13 +24,13 @@ html {
     background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("https://storage.googleapis.com/tipping_point/reproductive-health-supplies-coalition-i2I0_u98Rh4-unsplash.jpg");
     background-size: cover;
     color: white;
-    height: 60vh;
+    height: 30vh;
   }
   input, select {
     text-align: center;
-  }  
+  }
   /* body {
-    padding: 2em; 
+    padding: 2em;
 
   } */
 
@@ -38,11 +38,11 @@ html {
     float: left;
     width: 48%;
     height: 40%;
-    
-    
+
+
 
   }
-  
+
   /* Clear floats after the columns */
   .row:after {
     content: "";
@@ -53,9 +53,8 @@ html {
   p {
     color: grey;
   }
-  
+
   .total {
     color: red;
   }
 
-  
