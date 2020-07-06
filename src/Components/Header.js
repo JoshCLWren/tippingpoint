@@ -1,6 +1,8 @@
 import React from 'react';
 import "./main.css";
-
+import LoginButton from './LogInButton'
+import LogoutButton from './LogOutButton';
+import Profile from './Profile'
 
 
 const Header = () => {
@@ -11,7 +13,11 @@ const Header = () => {
             <div><h1>Trip Calculator</h1></div>
             <div><h2>'The Tipping Point'</h2></div>
             </div>
+            <LoginButton />
+            <LogoutButton />
+            <Profile />
         </div>
+
     )
 }
 

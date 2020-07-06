@@ -2,11 +2,9 @@ import React from 'react';
 import './Components/main.css';
 import {MileProvider} from "./Components/MileContext";
 import Header from "./Components/Header";
-import PresetSelector from "./Components/PresetSelector";
 import TotalDrivers from './Components/TotalDrivers';
 import CustomTrip from "./Components/CustomTrip";
 import RentalPaddingDay from './Components/RentalPaddingDay';
-import CustomMiles from './Components/CustomMiles';
 import Totals from './Components/Totals'
 import DetailedExpenses from './Components/DetailedExpenses';
 
@@ -19,16 +17,12 @@ function App() {
       <div className="column">
         <form>
         <Totals />
-        {/* <PresetSelector /> */}
         <CustomTrip />
-        {/* <CustomMiles /> */}
         <TotalDrivers />
         <RentalPaddingDay />
-        
         </form>
       </div>
-      <div className="column">  
-        
+      <div className="column">
         <DetailedExpenses />
       </div>
     </MileProvider>

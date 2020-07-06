@@ -1,12 +1,12 @@
 import React, {useState, useContext, useEffect} from 'react';
 import "./main.css";
-import {PRESETS} from "./presets";
+import {PRESETS} from "../unUsedComponents/presets";
 import { MileProvider, useMileDispatch, useMileState } from './MileContext';
 // import {useCalculateTotals} from "./CalculateTotals";
 
 
 const Totals = () => {
-    
+
     const {vanTotal, truck26Total, truck16Total} = useMileState()
     return(
 
@@ -16,7 +16,7 @@ const Totals = () => {
                 <p className="total">
                     ${vanTotal.toFixed(2)}
                     </p>
-                </div> 
+                </div>
                 <div>
                 <p>26 Foot Rental Truck Trip Total</p>
                 <p className="total">
