@@ -7,6 +7,8 @@ import CustomTrip from "./Components/CustomTrip";
 import RentalPaddingDay from './Components/RentalPaddingDay';
 import Totals from './Components/Totals'
 import DetailedExpenses from './Components/DetailedExpenses';
+import Index from './Components/Index.js'
+import Post from './Components/Post.js'
 
 function App() {
 
@@ -25,6 +27,8 @@ function App() {
       <div className="column">
         <DetailedExpenses />
       </div>
+      <Index />
+      <Post />
     </MileProvider>
   );
 }
