@@ -1,29 +1,72 @@
-import React, {useState, useEffect } from 'react'
+import React, {useState, useEffect } from 'react';
+import { useQuery, useMutation } from '@apollo/react-hooks';
+import { gql } from 'apollo-boost';
+import "./main.css";
 
 
-    const Index = () => {
 
-      const [indexLocations, setIndexLocations] = useState({})
+  const Index = () => {
 
-      async function fetchIndex()
-            {
-                const res = await fetch("http://localhost:5000/api/v1/locations/")
-                res
-                  .json()
-                  .then(res => setIndexLocations(res))
-            }
+    const LOCATIONS = gql`
+      {
+        locations {
+          id
+          slug
+          gps
+        }
+      }
+    `;
 
-        useEffect(() => {
-            fetchIndex()
-        }, []);
+    // const DELETE_LOCATIONS = gql`
+    //   mutation DeleteLocation($id: String!) {
+    //     deleteLocation(id: $id){
+    //       id
+    //     }
+    //   }
+    // `;
 
-      return (
-        <div>
-          <span>{JSON.stringify(indexLocations)}</span>
-          {/*  */}
-        </div>
-      )
-    };
+    const DELETE_LOCATIONS = gql`
+      mutation deleteLocation($id: String!){
+        deleteLocation(
+          input:{id: $id}){
+        location{
+          id
+          slug
+          gps
+        }
+      }
+    }
+    `;
+    const { loading, error, data } = useQuery(LOCATIONS);
+    const [deleteLocation] = useMutation(DELETE_LOCATIONS)
+
+    if (loading) return <p>Loading...</p>;
+    if (error) return <p>Error :(</p>;
+
+
+    // async function fetchIndex()
+    //       {
+    //           const res = await fetch("http://localhost:5000/api/v1/locations/")
+    //           res
+    //             .json()
+    //             .then(res => setIndexLocations(res))
+    //       }
+
+      // useEffect(() => {
+      //     fetchIndex()
+      // }, []);
+
+    return data.locations.map(({ id, slug, gps }) => (
+      <div key={id}>
+        <p className="inLine" >
+          {slug}: {gps}
+        </p>
+        <button className="inLine" onClick={() => deleteLocation({variables: {id} })}>
+          Delete Location
+        </button>
+      </div>
+    ));
+  };
 
 export default Index;
 
