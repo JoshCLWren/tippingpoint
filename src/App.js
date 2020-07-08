@@ -16,7 +16,7 @@ function App() {
   return (
     <MileProvider>
       <Header />
-      <div className="column">
+      {/* <div className="column">
         <form>
         <Totals />
         <CustomTrip />
@@ -26,7 +26,7 @@ function App() {
       </div>
       <div className="column">
         <DetailedExpenses />
-      </div>
+      </div> */}
       <Index />
       <Post />
     </MileProvider>

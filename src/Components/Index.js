@@ -7,7 +7,7 @@ import React, {useState, useEffect } from 'react'
 
       async function fetchIndex()
             {
-                const res = await fetch("http://localhost:5000/locations/")
+                const res = await fetch("http://localhost:5000/api/v1/locations/")
                 res
                   .json()
                   .then(res => setIndexLocations(res))
@@ -20,6 +20,7 @@ import React, {useState, useEffect } from 'react'
       return (
         <div>
           <span>{JSON.stringify(indexLocations)}</span>
+          {/*  */}
         </div>
       )
     };

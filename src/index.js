@@ -9,9 +9,9 @@ import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 
 ReactDOM.render(
   <Auth0Provider
-    domain="dev-59tm9cah.auth0.com"
-    clientId="wZw64vPvPipSdyR4S45r1to4gnkGWrwr"
-    redirectUri={window.location.origin}
+  domain="dev-59tm9cah.auth0.com"
+  clientId="wZw64vPvPipSdyR4S45r1to4gnkGWrwr"
+  redirectUri={window.location.origin}
   >
     <App />
   </Auth0Provider>,
