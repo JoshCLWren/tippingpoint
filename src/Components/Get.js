@@ -2,10 +2,14 @@ import React, {useState, useEffect } from 'react';
 import { useQuery, useMutation } from '@apollo/react-hooks';
 import { gql } from 'apollo-boost';
 import "./main.css";
+import { useAuth0 } from "@auth0/auth0-react";
 
 
 
-  const Index = () => {
+  const Get = () => {
+    // const { getAccessTokenSilently } = useAuth0();
+    // const TOKEN = getAccessTokenSilently()
+
 
     const LOCATIONS = gql`
       {
@@ -44,6 +48,7 @@ import "./main.css";
     if (error) return <p>Error :(</p>;
 
 
+
     // async function fetchIndex()
     //       {
     //           const res = await fetch("http://localhost:5000/api/v1/locations/")
@@ -57,17 +62,20 @@ import "./main.css";
       // }, []);
 
     return data.locations.map(({ id, slug, gps }) => (
+
       <div key={id}>
         <p className="inLine" >
           {slug}: {gps}
         </p>
+        Logged in
         <button className="inLine" onClick={() => deleteLocation({variables: {id} })}>
           Delete Location
+
         </button>
       </div>
     ));
   };
 
-export default Index;
+export default Get;
 
 
