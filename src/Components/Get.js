@@ -67,8 +67,8 @@ import { useAuth0 } from "@auth0/auth0-react";
         <p className="inLine" >
           {slug}: {gps}
         </p>
-        Logged in
-        <button className="inLine" onClick={() => deleteLocation({variables: {id} })}>
+
+      <button className="inLine" onClick={() => deleteLocation({variables: {id} })}>
           Delete Location
 
         </button>
