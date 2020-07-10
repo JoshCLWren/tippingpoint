@@ -53,17 +53,15 @@ import Location from "./location";
 
             <select value={locationOne} onChange={(event) => dispatch({type: 'locationOneChange', payload: event.target.value})}>
             {
-                Object.entries(data.locations).map(([slug, gps]) => (
-                <Location />
-            ))}
+              <Location />
+            }
             </select>
 
             Select your destination
             <select value={locationTwo} onChange={(event) => dispatch({type: 'locationTwoChange', payload: event.target.value})}>
             {
-                Object.entries(data.locations).map(([slug, gps]) => (
-                <Location />
-            ))}
+              <Location />
+            }
             </select>
         </div>
       )

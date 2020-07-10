@@ -11,7 +11,7 @@ const Header = () => {
         <div className="header">
             <div className="hero-text">
             <div><h1>Trip Calculator</h1></div>
-            <div><h2>'The Tipping Point'</h2></div>
+            <div><h2>'The Pivotal Point'</h2></div>
             </div>
             <LoginButton />
             <LogoutButton />

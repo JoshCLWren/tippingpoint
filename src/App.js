@@ -18,6 +18,8 @@ import { InMemoryCache } from 'apollo-cache-inmemory';
 import { createHttpLink } from 'apollo-link-http';
 import { onError } from 'apollo-link-error';
 import { ApolloLink } from 'apollo-link';
+import Table from 'react-bootstrap/Table'
+
 
 function App() {
   const { isAuthenticated, user } = useAuth0();
@@ -79,17 +81,26 @@ function App() {
       <Header />
        <div className="column">
          <form>
-         {/* <Totals /> */}
+         <Totals />
          <CustomTrip />
-         {/* <TotalDrivers />
-         <RentalPaddingDay /> */}
+         <TotalDrivers />
+         <RentalPaddingDay />
          </form>
        </div>
        <div className="column">
-         {/* <DetailedExpenses /> */}
+         <DetailedExpenses />
        </div>
-       {/* <Get /> */}
-       {/* <Post /> */}
+       <Table striped bordered hover>
+          <thead>
+            <tr>
+              <th>Location Name</th>
+              <th>GPS Coordinates</th>
+              <th>Options</th>
+            </tr>
+          </thead>
+          <Get />
+        </Table>
+       <Post />
      </MileProvider>
     </ApolloProvider>
   );

@@ -3,7 +3,7 @@ import { useQuery, useMutation } from '@apollo/react-hooks';
 import { gql } from 'apollo-boost';
 import "./main.css";
 import { useAuth0 } from "@auth0/auth0-react";
-
+import Table from 'react-bootstrap/Table'
 
 
   const Get = () => {
@@ -33,25 +33,42 @@ import { useAuth0 } from "@auth0/auth0-react";
       }
     }
     `;
+
+    const UPDATE_LOCATIONS = gql`
+      mutation updateLocation($id: String!){
+        updateLocation(
+          input:{id: $id, slug: $slug, gps: $gps}){
+            location{
+              id
+              slug
+              gps
+            }
+          }
+      }
+    `;
     const { loading, error, data } = useQuery(LOCATIONS);
-    const [deleteLocation] = useMutation(DELETE_LOCATIONS)
+    const [deleteLocation] = useMutation(DELETE_LOCATIONS);
+    const [updateLocation] = useMutation(UPDATE_LOCATIONS);
 
     if (loading) return <p>Loading...</p>;
-    if (error) return <p>Error :(</p>;
+    if (error) return <p>Error loading database. Are you logged in?</p>;
 
 
     return data.locations.map(({ id, slug, gps }) => (
-
-      <div key={id}>
-        <p className="inLine" >
-          {slug}: {gps}
-        </p>
-
-      <button className="inLine" onClick={() => deleteLocation({variables: {id} })}>
-          Delete Location
-
-        </button>
-      </div>
+        <tbody key={id}>
+            <tr>
+              <td>{slug}</td>
+              <td>{gps}</td>
+              <td>
+              <button className="danger" onClick={() => deleteLocation({variables: {id} })}>
+                Delete Location
+              </button>
+              {/* <button onClick={() => updateLocation({variables: {id}})}>
+                Update Location
+              </button> */}
+              </td>
+            </tr>
+          </tbody>
     ));
   };
 

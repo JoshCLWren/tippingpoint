@@ -1,8 +1,9 @@
 import React, {useState, useEffect } from 'react'
 import { useForm } from "react-hook-form"
-// import { useAuth0 } from "@auth0/auth0-react";
+import { useAuth0 } from "@auth0/auth0-react";
 import gql from 'graphql-tag';
 import { useMutation } from '@apollo/react-hooks';
+
 
   const CREATE_LOCATION = gql`
     mutation CreateLocation($slug: String!, $gps: String!){
@@ -29,6 +30,8 @@ import { useMutation } from '@apollo/react-hooks';
     `;
 
     const Post = () => {
+      const { isAuthenticated } = useAuth0();
+
       const [state, setState] = useState({
         slug: "",
         gps: ""
@@ -45,9 +48,7 @@ import { useMutation } from '@apollo/react-hooks';
         setState({ slug: "", gps: ""});
       };
 
-      const gpsRegularExpression = '/^([-+]?)([\d]{1,2})(((\.)(\d+)(,)))(([-+]?)([\d]{1,3})((\.)(\d+))?)$/g'
-
-      return (
+      return isAuthenticated &&
         <div>
           <h3>Enter a new Location</h3>
           <form onSubmit={handleSubmit(onSubmit)}>
@@ -71,7 +72,7 @@ import { useMutation } from '@apollo/react-hooks';
           </form>
 
         </div>
-      )
+
     }
 
 

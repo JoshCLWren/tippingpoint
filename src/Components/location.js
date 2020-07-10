@@ -22,9 +22,9 @@ const Location = () => {
 
     return data.locations.map(({ slug, gps }) => (
 
-            <option key={slug} value={gps}>
-            {slug}
-            </option>
+      <option key={slug} value={gps}>
+        {slug}
+      </option>
 
     ))
 
