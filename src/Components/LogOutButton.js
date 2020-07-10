@@ -1,3 +1,4 @@
+/* eslint-disable no-debugger, no-console */
 import React, { useEffect } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 
@@ -7,10 +8,9 @@ const LogoutButton = () => {
     (async () => {
       if (isAuthenticated) {
         const token = await getAccessTokenSilently({
-          audience: 'https://quickstarts/api',
-          scope: 'create:locations',
+          audience: "https://dev-59tm9cah.auth0.com/api/v2/",
+          scope: "read:current_user update:current_user_metadata"
         });
-        console.log(token);
       }
     })();
   }, [isAuthenticated]);

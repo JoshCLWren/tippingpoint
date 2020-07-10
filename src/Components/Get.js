@@ -21,14 +21,6 @@ import { useAuth0 } from "@auth0/auth0-react";
       }
     `;
 
-    // const DELETE_LOCATIONS = gql`
-    //   mutation DeleteLocation($id: String!) {
-    //     deleteLocation(id: $id){
-    //       id
-    //     }
-    //   }
-    // `;
-
     const DELETE_LOCATIONS = gql`
       mutation deleteLocation($id: String!){
         deleteLocation(
@@ -47,19 +39,6 @@ import { useAuth0 } from "@auth0/auth0-react";
     if (loading) return <p>Loading...</p>;
     if (error) return <p>Error :(</p>;
 
-
-
-    // async function fetchIndex()
-    //       {
-    //           const res = await fetch("http://localhost:5000/api/v1/locations/")
-    //           res
-    //             .json()
-    //             .then(res => setIndexLocations(res))
-    //       }
-
-      // useEffect(() => {
-      //     fetchIndex()
-      // }, []);
 
     return data.locations.map(({ id, slug, gps }) => (
 

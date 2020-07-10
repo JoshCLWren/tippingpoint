@@ -1,3 +1,4 @@
+/* eslint-disable no-debugger, no-console */
 import React, {useContext, useEffect } from 'react'
 import { COORDS } from "./coords"
 import { useMileDispatch, useMileState } from './MileContext';
@@ -16,16 +17,10 @@ import Location from "./location";
             {
 
                 const res = await fetch("https://api.mapbox.com/directions-matrix/v1/mapbox/driving/" + locationOne + ";" + locationTwo + "?sources=1&annotations=distance&access_token=pk.eyJ1Ijoiam9zaGlzcGx1dGFyIiwiYSI6ImNqeTZwNGF1ODAxa2IzZHA2Zm9iOWNhNXYifQ.X0D2p9KD-IXd7keb199nbg")
-                console.log(res);
                 const mapBoxObject = await res.json();
-                console.log(mapBoxObject);
                 const meters = mapBoxObject.distances[0];
-                console.log(meters);
                 const miles = (parseInt(meters) *  0.00062137119);
                 const roundtrip = 2 * miles;
-
-                console.log(miles.toFixed(2));
-
                 dispatch({type: 'totalMilesUpdate', payload: roundtrip.toFixed(2)})
 
             }
@@ -47,7 +42,7 @@ import Location from "./location";
 
 
       if (loading) return <p>Loading...</p>;
-      if (error) return <p>Error :(</p>;
+      if (error) return <p>Please Log in</p>;
 
       return (
         <div>

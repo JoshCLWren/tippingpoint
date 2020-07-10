@@ -1,30 +1,32 @@
-import React from 'react';
+/* eslint-disable no-debugger, no-console */
+import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
-import { Auth0Provider } from "@auth0/auth0-react";
+import { Auth0Provider, useAuth0 } from "@auth0/auth0-react";
 
 import * as serviceWorker from './serviceWorker';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 
-import ApolloClient from 'apollo-boost';
+import { ApolloClient, HttpLink, InMemoryCache } from 'apollo-boost';
 
 import { ApolloProvider } from '@apollo/react-hooks';
+import { setContext } from "apollo-link-context";
 
-const client = new ApolloClient({
-  uri: 'http://localhost:5000/api/v2/graphql/',
-});
+
 
 ReactDOM.render(
-  <ApolloProvider client={client}>
+
     <Auth0Provider
       domain="dev-59tm9cah.auth0.com"
       clientId="wZw64vPvPipSdyR4S45r1to4gnkGWrwr"
       redirectUri={window.location.origin}
-      >
+      audience="https://dev-59tm9cah.auth0.com/api/v2/"
+      scope="read:current_user update:current_user_metadata"
+    >
         <App />
-    </Auth0Provider>
-  </ApolloProvider>,
+    </Auth0Provider>,
+
   document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change

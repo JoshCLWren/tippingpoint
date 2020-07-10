@@ -49,6 +49,7 @@ import { useMutation } from '@apollo/react-hooks';
 
       return (
         <div>
+          <h3>Enter a new Location</h3>
           <form onSubmit={handleSubmit(onSubmit)}>
             <label>Location Name (keep it short like: ALB): </label>
               <input
@@ -61,7 +62,7 @@ import { useMutation } from '@apollo/react-hooks';
             <label>GPS Coordinates example: -95.760074,36.062184</label>
               <input
                 name="gps"
-                ref={register({ required: true, minLength: 7, pattern: { value: /^([-+]?)([\d]{1,2})(((\.)(\d+)(,)))(([-+]?)([\d]{1,3})((\.)(\d+))?)$/g} })}
+                ref={register({ required: true, minLength: 7, pattern: { value: /^([-]?)([\d]{1,2})(((\.)(\d+)(,)))(([-]?)([\d]{1,3})((\.)(\d+))?)$/g} })}
                 placeholder="Gps Coordinates"
                 onChange={onInputChange}
               />
