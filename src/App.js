@@ -1,15 +1,15 @@
 /* eslint-disable no-debugger, no-console */
 import React, { useState } from 'react';
 import './Components/main.css';
-import {MileProvider} from "./Components/MileContext";
+import {MileProvider} from "./Components/TripCalculator/MileContext";
 import Header from "./Components/Header";
-import TotalDrivers from './Components/TotalDrivers';
-import CustomTrip from "./Components/CustomTrip";
-import RentalPaddingDay from './Components/RentalPaddingDay';
-import Totals from './Components/Totals'
-import DetailedExpenses from './Components/DetailedExpenses';
-import Get from './Components/Get.js'
-import Post from './Components/Post.js'
+// import TotalDrivers from './Components/TripCalculator/TotalDrivers';
+// import CustomTrip from "./Components/TripCalculator/CustomTrip";
+// import RentalPaddingDay from './Components/TripCalculator/RentalPaddingDay';
+// import Totals from './Components/Totals'
+// import DetailedExpenses from './Components/DetailedExpenses';
+// import Get from './Components/Locations/Get.js'
+// import Post from './Components/Locations/Post.js'
 import { Auth0Provider, useAuth0 } from "@auth0/auth0-react";
 import { ApolloProvider } from '@apollo/react-hooks';
 import { setContext } from "apollo-link-context";
@@ -18,7 +18,16 @@ import { InMemoryCache } from 'apollo-cache-inmemory';
 import { createHttpLink } from 'apollo-link-http';
 import { onError } from 'apollo-link-error';
 import { ApolloLink } from 'apollo-link';
-import Table from 'react-bootstrap/Table'
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
+
+import Home from "./Components/Home";
+import TripCalculator from "./Components/TripCalculator/TripCalculator";
+import Locations from "./Components/Locations/Locations";
 
 
 function App() {
@@ -79,28 +88,35 @@ function App() {
     <ApolloProvider client={client}>
      <MileProvider>
       <Header />
-       <div className="column">
-         <form>
-         <Totals />
-         <CustomTrip />
-         <TotalDrivers />
-         <RentalPaddingDay />
-         </form>
-       </div>
-       <div className="column">
-         <DetailedExpenses />
-       </div>
-       <Table striped bordered hover>
-          <thead>
-            <tr>
-              <th>Location Name</th>
-              <th>GPS Coordinates</th>
-              <th>Options</th>
-            </tr>
-          </thead>
-          <Get />
-        </Table>
-       <Post />
+      <Router>
+        <div>
+          <nav>
+            <ul>
+              <li>
+                <Link to="/">Home</Link>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <Link to="/tripCalculator">Trip Calculator</Link>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <Link to="/locations">Locations</Link>
+              </li>
+            </ul>
+          </nav>
+
+          <Switch>
+            <Route path="/" component={Home}/>
+            <Route path="/tripCalculator" component={TripCalculator}/>
+            <Route path="/locations" component={Locations}/>
+          </Switch>
+        </div>
+      </Router>
+
+
      </MileProvider>
     </ApolloProvider>
   );

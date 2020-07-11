@@ -1,10 +1,10 @@
 /* eslint-disable no-debugger, no-console */
 import React, {useContext, useEffect } from 'react'
-import { COORDS } from "./coords"
+import { COORDS } from "../../unUsedComponents/coords"
 import { useMileDispatch, useMileState } from './MileContext';
 import { useQuery, useMutation } from '@apollo/react-hooks';
 import { gql } from 'apollo-boost';
-import Location from "./location";
+import LocationOptions from "./LocationOptions";
 
 
     const CustomTrip = () => {
@@ -53,14 +53,14 @@ import Location from "./location";
 
             <select value={locationOne} onChange={(event) => dispatch({type: 'locationOneChange', payload: event.target.value})}>
             {
-              <Location />
+              <LocationOptions />
             }
             </select>
 
             Select your destination
             <select value={locationTwo} onChange={(event) => dispatch({type: 'locationTwoChange', payload: event.target.value})}>
             {
-              <Location />
+              <LocationOptions />
             }
             </select>
         </div>

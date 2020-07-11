@@ -1,10 +1,10 @@
 import React, {useContext, useEffect } from 'react'
-import { COORDS } from "./coords"
+import { COORDS } from "../../unUsedComponents/coords"
 import { useMileDispatch, useMileState } from './MileContext';
 import { useQuery, useMutation } from '@apollo/react-hooks';
 import { gql } from 'apollo-boost';
 
-const Location = () => {
+const LocationOptions = () => {
 
   const LOCATIONS = gql`
         {
@@ -34,4 +34,4 @@ const Location = () => {
 
 };
 
-export default Location;
+export default LocationOptions;
