@@ -10,7 +10,7 @@ const Home = () => {
       <h2>
         May you have traveling mercies.
       </h2>
-
+      <p>Maybe add instructions/vision for the app here.</p>
     </div>
   )
 
