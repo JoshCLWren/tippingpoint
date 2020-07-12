@@ -8,20 +8,18 @@ import DetailedExpenses from "./DetailedExpenses";
 
 const TripCalculator = () => {
   return(
-    <>
+    <div>
       <div className="column">
-        <form>
           <Totals />
           <CustomTrip />
           <TotalDrivers />
           <RentalPaddingDay />
-        </form>
       </div>
 
       <div className="column">
         <DetailedExpenses />
       </div>
-    </>
+    </div>
   )
 }
 

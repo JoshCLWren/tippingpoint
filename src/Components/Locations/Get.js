@@ -50,8 +50,8 @@ import Table from 'react-bootstrap/Table'
     const [deleteLocation] = useMutation(DELETE_LOCATIONS);
     const [updateLocation] = useMutation(UPDATE_LOCATIONS);
 
-    if (loading) return <p>Loading...</p>;
-    if (error) return <p>Error loading database. Are you logged in?</p>;
+    if (loading) return <tbody>Loading...</tbody>;
+    if (error) return <tbody>Error loading database. Are you logged in?</tbody>;
 
 
     return data.locations.map(({ id, slug, gps }) => (

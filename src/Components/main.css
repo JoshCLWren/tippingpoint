@@ -30,7 +30,6 @@ html {
   .home {
     text-align: center;
     background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("https://storage.cloud.google.com/tipping_point/alex-grodkiewicz-VB7ew3d3eiI-unsplash.jpg");
-    background-size: cover;
     color: white;
   }
   input, select {
