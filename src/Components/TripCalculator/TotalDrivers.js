@@ -1,7 +1,6 @@
-import React, {useState, useContext} from 'react';
+import React from 'react';
 import "./main.css";
-import { MileProvider, useMileState, useMileDispatch } from './MileContext';
-import {KEY_NUMBERS} from "../keyValues";
+import { useMileState, useMileDispatch } from './MileContext';
 
 
 

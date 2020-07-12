@@ -1,7 +1,5 @@
-import React, {useContext, useEffect } from 'react'
-import { COORDS } from "../../unUsedComponents/coords"
-import { useMileDispatch, useMileState } from './MileContext';
-import { useQuery, useMutation } from '@apollo/react-hooks';
+import React from 'react'
+import { useQuery } from '@apollo/react-hooks';
 import { gql } from 'apollo-boost';
 
 const LocationOptions = () => {
