@@ -26,6 +26,7 @@ import LocationOptions from "./LocationOptions";
 
         useEffect(() => {
             fetchDistance()
+            // eslint-disable-next-line
         }, [locationOne, locationTwo]);
 
       const LOCATIONS = gql`
