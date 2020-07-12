@@ -98,18 +98,18 @@ function App() {
             </ul>
             <ul>
               <li>
-                <Link to={"/tripCalculator"}>Trip Calculator</Link>
+                <Link to="/tripCalculator">Trip Calculator</Link>
               </li>
             </ul>
             <ul>
               <li>
-                <Link to={"/locations"}>Locations</Link>
+                <Link to="/locations">Locations</Link>
               </li>
             </ul>
           </nav>
 
           <Switch>
-            <Route path="/" exact component={Home}/>
+            <Route path="/" component={Home}/>
             <Route path="/tripCalculator" component={TripCalculator}/>
             <Route path="/locations" component={Locations}/>
           </Switch>
