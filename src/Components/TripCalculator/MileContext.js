@@ -29,9 +29,7 @@ const initialState = {
     truck26Total: 0,
     truck16Fuel: 0,
     truck16Total: 0,
-    rental16Fees: 0,
-    truck16Fuel: 0,
-    truck16Total: 0
+    rental16Fees: 0
 };
 const mealCost = (totalMiles, drivers) => {
     return ((Math.round(totalMiles / 300)) * KEY_NUMBERS.AVG_MEAL_PRICE) * drivers;
