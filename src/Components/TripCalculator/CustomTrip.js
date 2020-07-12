@@ -1,7 +1,8 @@
 /* eslint-disable no-debugger, no-console */
-import React, { useEffect } from 'react'
+import React, {useContext, useEffect } from 'react'
+import { COORDS } from "../../unUsedComponents/coords"
 import { useMileDispatch, useMileState } from './MileContext';
-import { useQuery } from '@apollo/react-hooks';
+import { useQuery, useMutation } from '@apollo/react-hooks';
 import { gql } from 'apollo-boost';
 import LocationOptions from "./LocationOptions";
 
@@ -26,7 +27,6 @@ import LocationOptions from "./LocationOptions";
 
         useEffect(() => {
             fetchDistance()
-            // eslint-disable-next-line
         }, [locationOne, locationTwo]);
 
       const LOCATIONS = gql`
@@ -38,7 +38,7 @@ import LocationOptions from "./LocationOptions";
           }
         }
         `;
-      const { loading, error } = useQuery(LOCATIONS);
+      const { loading, error, data } = useQuery(LOCATIONS);
 
 
       if (loading) return <p>Loading...</p>;

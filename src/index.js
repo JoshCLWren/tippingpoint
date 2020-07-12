@@ -1,12 +1,19 @@
 /* eslint-disable no-debugger, no-console */
-import React from 'react';
+import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
-import { Auth0Provider } from "@auth0/auth0-react";
+import { Auth0Provider, useAuth0 } from "@auth0/auth0-react";
 import 'bootstrap/dist/css/bootstrap.min.css';
+
 import * as serviceWorker from './serviceWorker';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
+
+import { ApolloClient, HttpLink, InMemoryCache } from 'apollo-boost';
+
+import { ApolloProvider } from '@apollo/react-hooks';
+import { setContext } from "apollo-link-context";
+
 
 
 ReactDOM.render(

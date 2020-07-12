@@ -1,6 +1,7 @@
-import React from 'react';
+import React, {useState, useContext, useEffect} from 'react';
 import "./main.css";
-import { useMileDispatch } from './MileContext';
+import {PRESETS} from "./presets";
+import { MileProvider, useMileDispatch, useMileState } from './MileContext';
 // import {useCalculateTotals} from "./CalculateTotals";
 
 
