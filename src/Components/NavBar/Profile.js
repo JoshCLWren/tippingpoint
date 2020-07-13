@@ -6,11 +6,11 @@ const Profile = () => {
 
   return (
     isAuthenticated && (
-      <div>
+      <>
         <img src={user.picture} alt={user.name} />
-        <h2>Welcome {user.name}!</h2>
-        <h3>Where are we going?</h3>
-      </div>
+        <p>Welcome {user.name}!</p>
+        <p>Where are we going?</p>
+      </>
     )
   );
 };

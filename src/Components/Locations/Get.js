@@ -1,53 +1,16 @@
 import React from 'react';
 import { useQuery, useMutation } from '@apollo/react-hooks';
-import { gql } from 'apollo-boost';
+
 import "./main.css";
+import {GET_LOCATIONS, DELETE_LOCATIONS} from "../../GQL/gql";
 
   const Get = () => {
-    // const { getAccessTokenSilently } = useAuth0();
-    // const TOKEN = getAccessTokenSilently()
 
-
-    const LOCATIONS = gql`
-      {
-        locations {
-          id
-          slug
-          gps
-        }
-      }
-    `;
-
-    const DELETE_LOCATIONS = gql`
-      mutation deleteLocation($id: String!){
-        deleteLocation(
-          input:{id: $id}){
-        location{
-          id
-          slug
-          gps
-        }
-      }
-    }
-    `;
-
-    // const UPDATE_LOCATIONS = gql`
-    //   mutation updateLocation($id: String!){
-    //     updateLocation(
-    //       input:{id: $id, slug: $slug, gps: $gps}){
-    //         location{
-    //           id
-    //           slug
-    //           gps
-    //         }
-    //       }
-    //   }
-    // `;
-    const { loading, error, data } = useQuery(LOCATIONS);
+    const { loading, error, data } = useQuery(GET_LOCATIONS);
     const [deleteLocation] = useMutation(DELETE_LOCATIONS);
 
-    if (loading) return <tbody>Loading...</tbody>;
-    if (error) return <tbody>Error loading database. Are you logged in?</tbody>;
+    if (loading) return <tbody><tr><td>Loading...</td></tr></tbody>;
+    if (error) return <tbody><tr><td>Errror, are you logged in?</td></tr></tbody>;
 
 
     return data.locations.map(({ id, slug, gps }) => (

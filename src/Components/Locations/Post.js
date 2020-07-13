@@ -1,21 +1,9 @@
 import React, {useState } from 'react'
 import { useForm } from "react-hook-form"
 import { useAuth0 } from "@auth0/auth0-react";
-import gql from 'graphql-tag';
 import { useMutation } from '@apollo/react-hooks';
+import { GET_LOCATIONS, CREATE_LOCATION } from "../../GQL/gql";
 
-
-  const CREATE_LOCATION = gql`
-    mutation CreateLocation($slug: String!, $gps: String!){
-      createLocation(
-        input:{slug: $slug, gps: $gps}){
-      location {
-        slug
-        gps
-      }
-      }
-    }
-    `;
 
     const Post = () => {
       const { isAuthenticated } = useAuth0();
@@ -24,7 +12,18 @@ import { useMutation } from '@apollo/react-hooks';
         slug: "",
         gps: ""
       })
-      const [createLocation] = useMutation(CREATE_LOCATION)
+
+      const [createLocation] = useMutation(CREATE_LOCATION,
+        {
+          update(cache, { data: { createLocation } }) {
+            const { locations } = cache.readQuery({ query: GET_LOCATIONS });
+            cache.writeQuery({
+              query: GET_LOCATIONS,
+              data: { locations: locations.concat([createLocation]) },
+            });
+          }
+        }
+        )
 
       const { register, handleSubmit, errors } = useForm();
 
@@ -62,8 +61,6 @@ import { useMutation } from '@apollo/react-hooks';
         </div>
 
     }
-
-
 
 export default Post;
 

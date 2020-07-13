@@ -3,9 +3,6 @@ html {
   margin: 10px;
 }
 
-.wrapper {
-   height: 100%;
- }
 
  h1,h2 {
    font-family: Palatino, "Palatino Linotype", "Palatino LT STD", "Book Antiqua", Georgia, serif;
@@ -24,37 +21,38 @@ html {
     background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("https://storage.googleapis.com/tipping_point/reproductive-health-supplies-coalition-i2I0_u98Rh4-unsplash.jpg");
     background-size: cover;
     color: white;
-    height: 40vh;
   }
 
   .home {
     text-align: center;
-    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("https://storage.cloud.google.com/tipping_point/alex-grodkiewicz-VB7ew3d3eiI-unsplash.jpg");
+    background-image: url("https://storage.cloud.google.com/tipping_point/alex-grodkiewicz-VB7ew3d3eiI-unsplash.jpg");
     color: white;
+    height: 600px;
   }
   input, select {
     text-align: center;
+  }
+
+  .jumbotron {
+    padding: 1%;
   }
   /* body {
     padding: 2em;
 
   } */
-
+/*
   .column {
     float: left;
     width: 48%;
     height: 40%;
-
-
-
-  }
+  } */
 
   /* Clear floats after the columns */
-  .row:after {
+  /* .row:after {
     content: "";
     display: table;
     clear: both;
-  }
+  } */
 
   p {
     color: grey;

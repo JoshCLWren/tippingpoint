@@ -1,5 +1,5 @@
 import React from 'react';
-import "./main.css";
+import "../main.css";
 import LoginButton from './LogInButton'
 import LogoutButton from './LogOutButton';
 import Profile from './Profile'

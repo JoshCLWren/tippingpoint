@@ -3,10 +3,20 @@ import "./main.css";
 import Table from 'react-bootstrap/Table';
 import Get from "./Get";
 import Post from "./Post";
+import { useAuth0 } from "@auth0/auth0-react";
+import Header from "../NavBar/Header";
 
 const Locations = () => {
+  const { isAuthenticated } = useAuth0();
+
+  if(!isAuthenticated) {
+    return <Header />
+  }
+
   return(
+
     <>
+      <Post />
       <Table striped bordered hover>
         <thead>
           <tr>
@@ -17,7 +27,7 @@ const Locations = () => {
         </thead>
         <Get />
       </Table>
-      <Post />
+
     </>
   )
 }
