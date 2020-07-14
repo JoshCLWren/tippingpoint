@@ -3,6 +3,13 @@ import { useQuery, useMutation } from '@apollo/react-hooks';
 
 import "./main.css";
 import {GET_LOCATIONS, DELETE_LOCATIONS} from "../../GQL/gql";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
+import EditLocation from "./EditLocation";
 
   const Get = () => {
 
@@ -19,12 +26,15 @@ import {GET_LOCATIONS, DELETE_LOCATIONS} from "../../GQL/gql";
               <td>{slug}</td>
               <td>{gps}</td>
               <td>
-              <button className="danger" onClick={() => deleteLocation({variables: {id} })}>
+              <button className="danger" onClick={() => deleteLocation({variables: {id}, refetchQueries: [{query: GET_LOCATIONS}]})}>
                 Delete Location
               </button>
-              {/* <button onClick={() => updateLocation({variables: {id}})}>
-                Update Location
-              </button> */}
+              <Router>
+                <Link to={"/EditLocation"}>Edit</Link>
+              </Router>
+              <Switch>
+                <Route path="/EditLocation" component={EditLocation}/>
+              </Switch>
               </td>
             </tr>
           </tbody>

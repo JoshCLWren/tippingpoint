@@ -16,6 +16,7 @@
     "bootstrap": "^4.5.0",
     "graphql": "^15.3.0",
     "graphql-tag": "^2.10.4",
+    "offix-cache": "^0.15.5",
     "react": "^16.10.2",
     "react-bootstrap": "^1.2.0",
     "react-dom": "^16.10.2",
