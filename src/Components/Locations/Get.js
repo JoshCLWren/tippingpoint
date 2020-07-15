@@ -9,20 +9,21 @@ import {
   Route,
   Link
 } from "react-router-dom";
-import EditLocation from "./EditLocation";
+import UpdateLocation from "./UpdateLocation";
 
   const Get = () => {
 
     const { loading, error, data } = useQuery(GET_LOCATIONS);
     const [deleteLocation] = useMutation(DELETE_LOCATIONS);
 
-    if (loading) return <tbody><tr><td>Loading...</td></tr></tbody>;
-    if (error) return <tbody><tr><td>Errror, are you logged in?</td></tr></tbody>;
+    if (loading) return <tbody><tr><td>Loading...</td><td></td><td></td></tr></tbody>;
+    if (error) return <tbody><tr><td>Errror, are you logged in?</td><td></td><td></td></tr></tbody>;
 
 
     return data.locations.map(({ id, slug, gps }) => (
         <tbody key={id}>
             <tr>
+              <td>{id}</td>
               <td>{slug}</td>
               <td>{gps}</td>
               <td>
@@ -30,11 +31,15 @@ import EditLocation from "./EditLocation";
                 Delete Location
               </button>
               <Router>
-                <Link to={"/EditLocation"}>Edit</Link>
+                <Link to={"/updateLocation"}>
+                  <button className="danger">
+                    Update Locations
+                  </button>
+                </Link>
+                <Switch>
+                  <Route path="/updateLocation" component={UpdateLocation} />
+                </Switch>
               </Router>
-              <Switch>
-                <Route path="/EditLocation" component={EditLocation}/>
-              </Switch>
               </td>
             </tr>
           </tbody>

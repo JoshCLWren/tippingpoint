@@ -11,10 +11,10 @@ import { GET_LOCATIONS, CREATE_LOCATION } from "../../GQL/gql";
 
       const { register, handleSubmit, errors } = useForm();
 
-        const onSubmit = data => createLocation({
-              variables: {slug: data.slug, gps: data.gps},
-              refetchQueries: [{query: GET_LOCATIONS}]
-            });
+      const onSubmit = data => createLocation({
+            variables: {slug: data.slug, gps: data.gps},
+            refetchQueries: [{query: GET_LOCATIONS}]
+          });
 
       return isAuthenticated && (
         <div>

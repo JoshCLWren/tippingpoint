@@ -35,7 +35,7 @@ mutation CreateLocation($slug: String!, $gps: String!){
 }
 `;
 
-export const UPDATE_LOCATIONS = gql`
+export const UPDATE_LOCATION = gql`
   mutation updateLocation($id: String!){
     updateLocation(
       input:{id: $id, slug: $slug, gps: $gps}){

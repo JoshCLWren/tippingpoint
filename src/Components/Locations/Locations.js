@@ -17,9 +17,11 @@ const Locations = () => {
 
     <>
       <Post />
+      <h3>Location Database</h3>
       <Table striped bordered hover>
         <thead>
           <tr>
+            <th>ID#</th>
             <th>Location Name</th>
             <th>GPS Coordinates</th>
             <th>Options</th>
