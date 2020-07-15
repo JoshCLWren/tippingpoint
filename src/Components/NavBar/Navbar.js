@@ -16,6 +16,7 @@ import LoginButton from './LogInButton';
 import LogoutButton from './LogOutButton';
 import { useAuth0 } from "@auth0/auth0-react";
 import Header from "./Header";
+import RouteOptimzer from '../RouteOptimizer/RouteOptimzer';
 
 
 
@@ -36,6 +37,7 @@ const NavBar = () => {
             <Nav.Link ><Link to="/">Home</Link></Nav.Link>
             <Nav.Link ><Link to={"/tripCalculator"}>Trip Calculator</Link></Nav.Link>
             <Nav.Link ><Link to={"/locations"}>Locations</Link></Nav.Link>
+            <Nav.Link><Link to={"/routeOptimizer"}>Route Optimizer</Link></Nav.Link>
             <Nav.Link>
               <LoginButton />
             </Nav.Link>
@@ -50,6 +52,7 @@ const NavBar = () => {
           <Route path="/" exact component={Home}/>
           <Route path="/tripCalculator" component={TripCalculator}/>
           <Route path="/locations" component={Locations}/>
+          <Route path="/routeOptimizer" component={RouteOptimzer}/>
         </Switch>
     </Router>
   )

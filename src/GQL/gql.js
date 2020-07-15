@@ -47,3 +47,15 @@ export const UPDATE_LOCATION = gql`
       }
   }
 `;
+
+export const CREATE_ROUTE = gql`
+  mutation CreateRoute($name: String!, $description: String!){
+    createRoute(
+      input:{name: $name, description: $description}){
+        route {
+          name
+          description
+        }
+      }
+  }
+`;

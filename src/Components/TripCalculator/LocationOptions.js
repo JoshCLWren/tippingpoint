@@ -18,7 +18,7 @@ const LocationOptions = () => {
   if (error) return <option value="-73.778716,42.740913">ALB</option>;
 
 
-    return data.locations.map(({ slug, gps }) => (
+    return data.locations.map(({ id, slug, gps }) => (
 
       <option key={slug} value={gps}>
         {slug}

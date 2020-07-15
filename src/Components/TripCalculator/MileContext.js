@@ -29,7 +29,9 @@ const initialState = {
     truck26Total: 0,
     truck16Fuel: 0,
     truck16Total: 0,
-    rental16Fees: 0
+    rental16Fees: 0,
+    searchResults: "",
+    count: 0
 };
 const mealCost = (totalMiles, drivers) => {
     return ((Math.round(totalMiles / 300)) * KEY_NUMBERS.AVG_MEAL_PRICE) * drivers;
@@ -149,6 +151,12 @@ function mileReducer(state, action, initialState) {
         }
         case 'locationTwoChange': {
             return {...state, locationTwo: action.payload}
+        }
+        case 'searchResultsChange': {
+            return {...state, searchResults: action.payload}
+        }
+        case 'countClick': {
+            return {...state, count: action.payload}
         }
         case "rentalPaddingDayChange": {
             return {...state,
