@@ -1,6 +1,7 @@
 import React from 'react';
 import "./main.css";
 import { useMileState } from './MileContext';
+import TotalButton from './TotalButton';
 // import {useCalculateTotals} from "./CalculateTotals";
 
 
@@ -27,6 +28,9 @@ const Totals = () => {
                 <p className="total">
                     ${truck16Total.toFixed(2)}
                 </p>
+                </div>
+                <div>
+                    <TotalButton />
                 </div>
             </div>
 

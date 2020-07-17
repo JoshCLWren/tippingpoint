@@ -18,7 +18,7 @@ ReactDOM.render(
       audience="https://dev-59tm9cah.auth0.com/api/v2/"
       scope="read:current_user update:current_user_metadata"
     >
-        <App />
+      <App />
     </Auth0Provider>,
 
   document.getElementById('root'));
