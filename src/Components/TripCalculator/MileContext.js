@@ -1,5 +1,21 @@
 import React,{useReducer, createContext} from 'react';
 import {KEY_NUMBERS} from "../keyValues";
+import {
+    mealCost,
+    hoursBasedOnMiles,
+    mealsBasedOnMiles,
+    drivingDaysByMiles,
+    hotelTotalCostByMiles,
+    vanFuelExpenseByMiles,
+    labor,
+    vanTotal,
+    rental26Fees,
+    truck26Fuel,
+    rental16Fees,
+    truck16Fuel,
+    truck26Total,
+    truck16Total
+} from "./KeyFunctions"
 
 const MileStateContext = createContext();
 const MileDispatchContext = createContext();
@@ -32,64 +48,7 @@ const initialState = {
     searchResults: "",
     count: 0
 };
-const mealCost = (totalMiles, drivers) => {
-    return ((Math.round(totalMiles / 300)) * KEY_NUMBERS.AVG_MEAL_PRICE) * drivers;
-}
 
-const hoursBasedOnMiles = (totalMiles) => {
-    return Math.round(totalMiles/75);
-}
-
-const mealsBasedOnMiles = (totalMiles) => {
-    return Math.round(totalMiles / 300);
-    // the assumption here is that every 300 miles we will stop for a meal. This value was determined by considering the okc metro run (to prevent meals on that trip)
-    // and how many miles are in a day of driving which we agreed on limiting to 600 miles a day.
-}
-const drivingDaysByMiles = (totalMiles) => {
-    return Math.ceil(totalMiles / KEY_NUMBERS.DAILY_MILE_LIMIT)
-}
-
-const hotelTotalCostByMiles = (totalMiles) => {
-    return KEY_NUMBERS.HOTEL_COST * (Math.ceil(totalMiles / KEY_NUMBERS.DAILY_MILE_LIMIT) - 1)
-}
-
-const vanFuelExpenseByMiles = (totalMiles, gasPrice) => {
-    return (totalMiles / KEY_NUMBERS.VAN_MPG) * parseFloat(gasPrice);
-}
-
-const labor = (totalMiles, drivers) => {
-    return ((KEY_NUMBERS.HOURLY_FEE * totalMiles )) * drivers;
-
-}
-
-const vanTotal = (labor, gas, hotel, meals) => {
-return labor + gas + hotel + meals;
-}
-
-const rental26Fees = (totalMiles, rentalPaddingDay, drivingDays) => {
-    return parseInt((KEY_NUMBERS.ENTERPRISE_26_DAILY_FEE * (drivingDays + rentalPaddingDay%7)) +
-            (KEY_NUMBERS.ENTERPRISE_26_WEEKLY_FEE * (drivingDays + rentalPaddingDay)/7) +
-            (KEY_NUMBERS.ENTERPRISE_ROADSIDE_DAILY * (drivingDays + rentalPaddingDay)) +
-            (KEY_NUMBERS.ENTERPRISE_MILEAGE_CHARGE * (totalMiles + KEY_NUMBERS.ROUND_TRIP_WAREHOUSE_ENTERPRISE)));
-}
-
-const truck26Fuel = (totalMiles, diesel) => {
-    return parseInt((totalMiles / KEY_NUMBERS.TRUCK_26_MPG) * parseFloat(diesel))
-}
-
-
-const truck26Total = (rentalFees, meals, labor, diesel, hotel ) => {
-    console.log("fees" + rentalFees);
-    console.log("meals" + meals);
-    console.log("labor" + labor);
-    console.log("diesel" + diesel);
-    console.log("hotel" + hotel);
-    return parseInt(rentalFees) + parseInt(meals) + parseInt(labor) + parseInt(diesel) + parseInt(hotel);
-}
-
-const truck16Total = (rentalFees, meals, labor, diesel, hotel ) => {
-    return rentalFees + meals + labor + diesel + hotel;
-}
 
 function mileReducer(state, action) {
     switch (action.type) {
@@ -108,11 +67,8 @@ function mileReducer(state, action) {
                     rentalDailyRate: ((Math.ceil(action.payload / KEY_NUMBERS.DAILY_MILE_LIMIT)) + state.rentalPaddingDay)%7,
                     rental26Fees: rental26Fees(action.payload, state.rentalPaddingDay, state.drivingDays),
                     truck26Fuel: truck26Fuel(action.payload, state.diesel),
-                    rental16Fees: (KEY_NUMBERS.ENTERPRISE_16_DAILY_FEE * (((Math.ceil(action.payload / KEY_NUMBERS.DAILY_MILE_LIMIT)) + state.rentalPaddingDay)%7)) +
-                         (KEY_NUMBERS.ENTERPRISE_16_WEEKLY_FEE * (Math.floor(((Math.ceil(action.payload / KEY_NUMBERS.DAILY_MILE_LIMIT)) + state.rentalPaddingDay)/7))) +
-                         (KEY_NUMBERS.ENTERPRISE_ROADSIDE_DAILY * ((Math.ceil(action.payload / KEY_NUMBERS.DAILY_MILE_LIMIT)) + state.rentalPaddingDay)) +
-                         (KEY_NUMBERS.ENTERPRISE_MILEAGE_CHARGE * (action.payload + KEY_NUMBERS.ROUND_TRIP_WAREHOUSE_ENTERPRISE)),
-                    truck16Fuel: ((action.payload / KEY_NUMBERS.TRUCK_16_MPG) * parseFloat(state.diesel)),
+                    rental16Fees: rental16Fees(action.payload, state.rentalPaddingDay, state.drivingDays),
+                    truck16Fuel: truck16Fuel(action.payload, state.diesel),
                 }
         }
         case 'driversUpdate': {
@@ -144,10 +100,7 @@ function mileReducer(state, action) {
                      rentalWeeklyRate: Math.floor(((Math.ceil(state.totalMiles / KEY_NUMBERS.DAILY_MILE_LIMIT)) + action.payload)/7),
                      rentalDailyRate: ((Math.ceil(state.totalMiles / KEY_NUMBERS.DAILY_MILE_LIMIT)) + action.payload)%7,
                      rental26Fees: rental26Fees(state.totalMiles, action.payload, state.drivingDays),
-                    rental16Fees: (KEY_NUMBERS.ENTERPRISE_16_DAILY_FEE * (((Math.ceil(state.totalMiles / KEY_NUMBERS.DAILY_MILE_LIMIT)) + action.payload)%7)) +
-                        (KEY_NUMBERS.ENTERPRISE_16_WEEKLY_FEE * (Math.floor(((Math.ceil(state.totalMiles / KEY_NUMBERS.DAILY_MILE_LIMIT)) + action.payload)/7))) +
-                        (KEY_NUMBERS.ENTERPRISE_ROADSIDE_DAILY * ((Math.ceil(state.totalMiles / KEY_NUMBERS.DAILY_MILE_LIMIT)) + action.payload)) +
-                        (KEY_NUMBERS.ENTERPRISE_MILEAGE_CHARGE * (state.totalMiles + KEY_NUMBERS.ROUND_TRIP_WAREHOUSE_ENTERPRISE)),
+                    rental16Fees: rental16Fees(state.totalMiles, action.payload, state.drivingDays),
                     }
         }
         case "gasOverride":{
@@ -161,7 +114,7 @@ function mileReducer(state, action) {
             return {...state,
                     diesel: parseFloat(action.payload),
                     truck26Fuel: truck26Fuel(state.totalMiles, action.payload),
-                    truck16Fuel: ((state.totalMiles / KEY_NUMBERS.TRUCK_16_MPG) * parseFloat(action.payload)),
+                    truck16Fuel: truck16Fuel(state.totalMiles, action.payload),
 
         }}
         case "drivingDaysUpdate":{
@@ -174,11 +127,7 @@ function mileReducer(state, action) {
                 rentalWeeklyRate: (parseInt(action.payload) + state.rentalPaddingDay)/7,
                 rentalDailyRate: (parseInt(action.payload) + state.rentalPaddingDay)%7,
                 rental26Fees: rental26Fees(state.totalMiles, state.rentalPaddingDay, action.payload),
-                rental16Fees: (KEY_NUMBERS.ENTERPRISE_16_DAILY_FEE * ((parseInt(action.payload)+ state.rentalPaddingDay)%7)) +
-                    (KEY_NUMBERS.ENTERPRISE_16_WEEKLY_FEE * (Math.floor(parseInt(action.payload) + state.rentalPaddingDay)/7)) +
-                    (KEY_NUMBERS.ENTERPRISE_ROADSIDE_DAILY * ((parseInt(action.payload)) + state.rentalPaddingDay)) +
-                    (KEY_NUMBERS.ENTERPRISE_MILEAGE_CHARGE * (state.totalMiles + KEY_NUMBERS.ROUND_TRIP_WAREHOUSE_ENTERPRISE)),
-                meals: Math.round(action.payload / 2),
+                rental16Fees: rental16Fees(state.totalMiles, state.rentalPaddingDay, action.payload),
                 mealCost: mealCost(state.totalMiles, action.payload, KEY_NUMBERS.AVG_MEAL_PRICE)
             }
         }

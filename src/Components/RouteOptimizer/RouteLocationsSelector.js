@@ -5,20 +5,47 @@ import { useMileDispatch, useMileState } from '../TripCalculator/MileContext';
 import AddLocationCheckbox from "./AddLocationCheckbox";
 
   const RouteLocationsSelector = (props) => {
-    const {count} = useMileState()
-    const dispatch = useMileDispatch()
-    const [checked, setChecked] = useState(false);
-    const handleClick = () => setChecked(!checked)
 
-    var locationArray = [];
+    // const [checked, setChecked] = useState(false);
+    // const handleClick = () => setChecked(!checked)
 
-    function checkedLocations(id) {
-      if (!locationArray.includes(id)) {
-        return locationArray.push(id)
+
+    const [locations, setLocations] = useState([]);
+
+    // function checkedLocations(checkedId) {
+    //   if (!locations.includes(checkedId)) {
+    //     locations.push(checkedId)
+
+    //   } else {
+    //     const filteredLocations = locations.filter((locationId) => {
+    //       if (locationId !== checkedId){
+    //         return true
+    //       }
+    //     })
+
+    //     setLocations(filteredLocations);
+    //   }
+    //   console.log(locations);
+    //   console.log(filteredLocations);
+    // }
+
+    function checkedLocations(checkedId) {
+
+      // we're getting somewhere. The function runs at render but is alos runs each time it's clicked. How do we get it to not run at render?
+        if (!locations.includes(checkedId)) {
+        locations.push(checkedId)
 
       } else {
-        return locationArray.filter(function(e) { return e != id})
+        const filteredLocations = locations.filter((locationId) => {
+          if (locationId !== checkedId){
+            return true
+          }
+        })
+
+        setLocations(filteredLocations);
       }
+      console.log(checkedId);
+      console.log(locations)
     }
 
 
@@ -36,9 +63,11 @@ import AddLocationCheckbox from "./AddLocationCheckbox";
           <td>{slug}</td>
           <td>{gps}</td>
           <td>
-            {/* <AddLocationCheckbox
-              id={id}
-            /> */}
+            <AddLocationCheckbox
+              checkedLocations = {checkedLocations}
+              id = {id}
+              // pass the function through a prop that's not an event listener.
+            />
 
           </td>
         </tr>
