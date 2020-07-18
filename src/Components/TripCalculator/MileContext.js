@@ -14,7 +14,8 @@ import {
     rental16Fees,
     truck16Fuel,
     truck26Total,
-    truck16Total
+    truck16Total,
+    checkedLocations
 } from "./KeyFunctions"
 
 const MileStateContext = createContext();
@@ -46,7 +47,8 @@ const initialState = {
     truck16Total: 0,
     rental16Fees: 0,
     searchResults: "",
-    count: 0
+    count: 0,
+    locations: []
 };
 
 
@@ -137,6 +139,11 @@ function mileReducer(state, action) {
                 truck26Total: truck26Total(parseInt(state.rental26Fees),  parseInt(state.mealCost), parseInt(state.labor), parseInt(state.truck26Fuel), parseInt(state.hotelTotalCost)),
                 truck16Total: truck16Total(state.rental16Fees, state.mealCost, state.labor, state.truck16Fuel, state.hotelTotalCost)
             }}
+        case "locationsArray":{
+            return {...state,
+                locations: checkedLocations(action.payload, state.locations)
+            }
+        }
         default: {
             throw new Error(`Unhandled action type: ${action.type}`)
           }

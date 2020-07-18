@@ -54,8 +54,37 @@ export const CREATE_ROUTE = gql`
       input:{name: $name, description: $description}){
         route {
           name
-          description
+          description,
+          locations{
+            slug
+          }
         }
       }
+  }
+`;
+
+export const GET_ROUTES = gql`
+{
+  routes {
+    id,
+    name,
+    description,
+    locations{
+      slug
+    }
+  }
+}
+`;
+
+export const CREATE_ROUTE_LOCATION = gql`
+  mutation {
+    createRouteLocation(input: {routeId: $routeId, locationId: $locationId}) {
+      clientMutationId
+      routeLocation {
+        id
+        routeId
+        locationId
+      }
+    }
   }
 `;

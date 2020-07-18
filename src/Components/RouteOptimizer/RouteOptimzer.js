@@ -1,20 +1,63 @@
-import React from 'react'
+import React, {useState} from 'react'
 import { useForm } from "react-hook-form"
 import { useAuth0 } from "@auth0/auth0-react";
 import { useQuery, useMutation } from '@apollo/react-hooks';
-import { GET_LOCATIONS, CREATE_ROUTE } from "../../GQL/gql";
+import { GET_ROUTES, CREATE_ROUTE, CREATE_ROUTE_LOCATION } from "../../GQL/gql";
 import Table from 'react-bootstrap/Table';
 import RouteLocationsSelector from './RouteLocationsSelector';
+import GetRoutes from './GetRoutes';
 
-  const RouteOptimzer = () => {
+  const RouteOptimzer = (props) => {
     const { isAuthenticated } = useAuth0();
+    const [locations, setLocations] = useState([]);
+    const { loading, error, data } = useQuery(GET_ROUTES);
 
     const [createRoute] = useMutation(CREATE_ROUTE)
+    const [createRouteLocation] = useMutation(CREATE_ROUTE_LOCATION)
     const { register, handleSubmit, errors } = useForm();
 
-    const onSubmit = data => createRoute({
-          variables: {name: data.name, description: data.description}
-        });
+    function loopOverLocations(locations, routeDesignator){
+      for(var i = 1; i > locations.length; i++){
+        createRouteLocation(
+          {
+            variables: {
+              routeId: routeDesignator,
+              locationId: i
+            }
+          }
+        )
+      }
+    }
+
+    const onSubmit = data => createRoute({variables: {name: data.name, description: data.description},refetchQueries: [{query: GET_ROUTES}],});
+
+
+    // const onSubmit = data => createRoute({
+    //       variables: {name: data.name, description: data.description, ids: props.locations}
+    //     });
+
+    // const onSubmit = locations => console.log(locations)
+
+    function checkedLocations(checkedId) {
+
+      // we're getting somewhere. The function runs at render but is alos runs each time it's clicked. How do we get it to not run at render?
+        if (!locations.includes(checkedId)) {
+        locations.push(checkedId)
+
+      } else {
+        const filteredLocations = locations.filter((locationId) => {
+          if (locationId !== checkedId){
+            return true
+          }
+        })
+
+        setLocations(filteredLocations);
+      }
+      console.log(checkedId);
+      console.log(locations)
+    }
+
+
 
     return isAuthenticated && (
       <>
@@ -43,12 +86,18 @@ import RouteLocationsSelector from './RouteLocationsSelector';
             <thead>
               <tr>
                 <th>ID#</th>
-                <th>Location Name</th>
-                <th>GPS Coordinates</th>
-                <th>Options</th>
+                <th>Route Name</th>
+                <th>Description</th>
+                <th>Locations</th>
               </tr>
             </thead>
-           <RouteLocationsSelector />
+            <GetRoutes />
+           {/* <RouteLocationsSelector
+              checkedLocations = {checkedLocations}
+              name="ids"
+              ref={register({ required: true, maxLength: 12 })}
+              ids={locations}
+           /> */}
           </Table>
           <input type="submit" />
         </form>

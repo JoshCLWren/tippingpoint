@@ -64,3 +64,25 @@ export const truck26Total = (rentalFees, meals, labor, diesel, hotel ) => {
 export const truck16Total = (rentalFees, meals, labor, diesel, hotel ) => {
   return rentalFees + meals + labor + diesel + hotel;
 }
+
+export const checkedLocations = (checkedId, x) => {
+    var locations = x.concat([])
+  // we're getting somewhere. The function runs at render but is alos runs each time it's clicked. How do we get it to not run at render?
+    if (locations === undefined) {
+      locations.push(checkedId)
+    }
+    else if (!locations.includes(checkedId)) {
+    locations.push(checkedId)
+
+   } else {
+    const filteredLocations = locations.filter((locationId) => {
+      if (locationId !== checkedId){
+        return true
+      }
+    })
+
+    return filteredLocations;
+  }
+  console.log(checkedId);
+  console.log(locations)
+}

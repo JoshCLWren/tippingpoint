@@ -1,18 +1,18 @@
 import React, {useState} from 'react'
 import { useQuery, useMutation } from '@apollo/react-hooks';
-import { GET_LOCATIONS } from "../../GQL/gql";
+import { GET_ROUTES } from "../../GQL/gql";
 import { useMileDispatch, useMileState } from '../TripCalculator/MileContext';
 import AddLocationCheckbox from "./AddLocationCheckbox";
 import { useForm } from "react-hook-form"
 
-  const RouteLocationsSelector = (props) => {
+  const GetRoutes = (props) => {
 
     // const [checked, setChecked] = useState(false);
     // const handleClick = () => setChecked(!checked)
 
-    const { register,  errors } = useForm();
+    // const { register,  errors } = useForm();
 
-    const [locations, setLocations] = useState([]);
+    // const [locations, setLocations] = useState([]);
 
     // function checkedLocations(checkedId) {
     //   if (!locations.includes(checkedId)) {
@@ -52,25 +52,25 @@ import { useForm } from "react-hook-form"
 
 
 
-    const { loading, error, data } = useQuery(GET_LOCATIONS);
+    const { loading, error, data } = useQuery(GET_ROUTES);
 
     if (loading) return <tbody><tr><td>Loading...</td><td></td><td></td></tr></tbody>;
     if (error) return <tbody><tr><td>Errror, are you logged in?</td><td></td><td></td></tr></tbody>;
 
 
-    return data.locations.map(({ id, slug, gps }) => (
+    return data.routes.map(({ id, name, description }) => (
       <tbody key={id}>
         <tr>
           <td>{id}</td>
-          <td>{slug}</td>
-          <td>{gps}</td>
+          <td>{name}</td>
+          <td>{description}</td>
           <td>
-            <AddLocationCheckbox
+            {/* <AddLocationCheckbox
               checkedLocations = {props.checkedLocations}
               ref={register({ required: true, maxLength: 12 })}
               id = {id}
               // pass the function through a prop that's not an event listener.
-            />
+            /> */}
 
           </td>
         </tr>
@@ -78,4 +78,4 @@ import { useForm } from "react-hook-form"
     ))
   };
 
-  export default RouteLocationsSelector;
+  export default GetRoutes;
