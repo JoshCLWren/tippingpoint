@@ -7,6 +7,7 @@ import Table from 'react-bootstrap/Table';
 import RouteLocationsSelector from './RouteLocationsSelector';
 import GetRoutes from './GetRoutes';
 
+
   const RouteOptimzer = (props) => {
     const { isAuthenticated } = useAuth0();
     const [locations, setLocations] = useState([]);
@@ -88,7 +89,7 @@ import GetRoutes from './GetRoutes';
                 <th>ID#</th>
                 <th>Route Name</th>
                 <th>Description</th>
-                <th>Locations</th>
+                <th>Actions</th>
               </tr>
             </thead>
             <GetRoutes />

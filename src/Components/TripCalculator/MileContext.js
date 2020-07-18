@@ -48,7 +48,8 @@ const initialState = {
     rental16Fees: 0,
     searchResults: "",
     count: 0,
-    locations: []
+    locations: [],
+    locationID: 0
 };
 
 
@@ -94,6 +95,9 @@ function mileReducer(state, action) {
         }
         case 'countClick': {
             return {...state, count: action.payload}
+        }
+        case 'addLocationID': {
+            return {...state, locationID: action.payload}
         }
         case "rentalPaddingDayChange": {
             return {...state,

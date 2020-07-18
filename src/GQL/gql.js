@@ -63,6 +63,19 @@ export const CREATE_ROUTE = gql`
   }
 `;
 
+export const DELETE_ROUTE = gql`
+  mutation deleteRoute($id: ID!){
+    deleteRoute(
+      input:{id: $id}){
+    route{
+      id
+      name
+      description
+    }
+  }
+}
+`;
+
 export const GET_ROUTES = gql`
 {
   routes {
@@ -76,15 +89,29 @@ export const GET_ROUTES = gql`
 }
 `;
 
+// export const CREATE_ROUTE_LOCATION = gql`
+//   mutation {
+//     createRouteLocation(input:{routeId: String!, locationId: String!}) {
+//       clientMutationId
+//       routeLocation {
+//         id
+//         $routeId
+//         $locationId
+//       }
+//     }
+//   }
+// `;
+
+
 export const CREATE_ROUTE_LOCATION = gql`
-  mutation {
-    createRouteLocation(input: {routeId: $routeId, locationId: $locationId}) {
-      clientMutationId
-      routeLocation {
-        id
-        routeId
-        locationId
+  mutation CreateRouteLocation($routeId: ID!, $locationId: ID!){
+    createRouteLocation(
+      input:{routeId: $routeId, locationId: $locationId}){
+        routeLocation {
+          id
+          routeId
+          locationId
+        }
       }
-    }
   }
 `;

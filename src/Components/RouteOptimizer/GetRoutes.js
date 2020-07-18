@@ -1,9 +1,17 @@
 import React, {useState} from 'react'
 import { useQuery, useMutation } from '@apollo/react-hooks';
-import { GET_ROUTES } from "../../GQL/gql";
+import { GET_ROUTES, DELETE_ROUTE } from "../../GQL/gql";
 import { useMileDispatch, useMileState } from '../TripCalculator/MileContext';
 import AddLocationCheckbox from "./AddLocationCheckbox";
 import { useForm } from "react-hook-form"
+import AddLocationsToRouteButton from "./AddLocationsToRouteButton"
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
+import AddLocationsToRoute from "./AddLocationsToRoute";
 
   const GetRoutes = (props) => {
 
@@ -53,6 +61,7 @@ import { useForm } from "react-hook-form"
 
 
     const { loading, error, data } = useQuery(GET_ROUTES);
+    const [deleteRoute] = useMutation(DELETE_ROUTE);
 
     if (loading) return <tbody><tr><td>Loading...</td><td></td><td></td></tr></tbody>;
     if (error) return <tbody><tr><td>Errror, are you logged in?</td><td></td><td></td></tr></tbody>;
@@ -65,6 +74,17 @@ import { useForm } from "react-hook-form"
           <td>{name}</td>
           <td>{description}</td>
           <td>
+            <Router>
+              <AddLocationsToRouteButton
+                id={id}
+                name={name}
+                description={description}
+              />
+            </Router>
+
+            <button className="danger" onClick={() => deleteRoute({variables: {id}, refetchQueries: [{query: GET_ROUTES}]})}>
+                Delete Route
+              </button>
             {/* <AddLocationCheckbox
               checkedLocations = {props.checkedLocations}
               ref={register({ required: true, maxLength: 12 })}
