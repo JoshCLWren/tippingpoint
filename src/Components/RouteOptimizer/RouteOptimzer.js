@@ -81,6 +81,7 @@ import GetRoutes from './GetRoutes';
               placeholder="Tell me about this route"
             />
           {errors.gps && <p>Description can't be blank and can't esceed 50 characters.</p>}
+          <input type="submit" />
 
           <p>Now add some locations to your Route.</p>
           <Table striped bordered hover>
@@ -100,7 +101,7 @@ import GetRoutes from './GetRoutes';
               ids={locations}
            /> */}
           </Table>
-          <input type="submit" />
+
         </form>
       </>
 

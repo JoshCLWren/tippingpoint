@@ -10,6 +10,23 @@ export const GET_LOCATIONS = gql`
       }
     `;
 
+export const GET_ROUTE = gql`
+      query getRoute($id: ID!){
+        route(id: $id){
+
+          id
+          name
+          description
+          locationsCount
+          locations{
+            id
+            slug
+            gps
+          }
+        }
+      }
+`;
+
 export const DELETE_LOCATIONS = gql`
   mutation deleteLocation($id: String!){
     deleteLocation(
@@ -22,6 +39,20 @@ export const DELETE_LOCATIONS = gql`
   }
 }
 `;
+
+export const DELETE_ROUTE_LOCATIONS = gql`
+  mutation deleteRouteLocation($routeId: String!, $locationId: String!){
+    deleteRouteLocation(
+      input:{routeId: $routeId, locationId: $locationId}){
+    routeLocation{
+      routeId
+      locationId
+    }
+  }
+}
+`;
+
+
 
 export const CREATE_LOCATION = gql`
 mutation CreateLocation($slug: String!, $gps: String!){
@@ -82,26 +113,15 @@ export const GET_ROUTES = gql`
     id,
     name,
     description,
+    locationsCount,
     locations{
+      id
       slug
+      gps
     }
   }
 }
 `;
-
-// export const CREATE_ROUTE_LOCATION = gql`
-//   mutation {
-//     createRouteLocation(input:{routeId: String!, locationId: String!}) {
-//       clientMutationId
-//       routeLocation {
-//         id
-//         $routeId
-//         $locationId
-//       }
-//     }
-//   }
-// `;
-
 
 export const CREATE_ROUTE_LOCATION = gql`
   mutation CreateRouteLocation($routeId: ID!, $locationId: ID!){
