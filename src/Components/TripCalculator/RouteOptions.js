@@ -6,13 +6,13 @@ const RouteOptions = () => {
 
   const { loading, error, data } = useQuery(GET_ROUTES);
 
-  if (loading) return <option value="18">OKC financ RUn</option>;
-  if (error) return <option value="18">OKC financ RUn</option>;
+  if (loading) return <option value="38">test</option>;
+  if (error) return <option value="38">test</option>;
 
 
     return data.routes.map(({ id, name}) => (
 
-      <option key={id} value={id}>
+      <option key={name} value={id}>
         {name}
       </option>
 

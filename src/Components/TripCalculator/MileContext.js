@@ -49,7 +49,7 @@ const initialState = {
     count: 0,
     locations: [],
     locationID: 0,
-    selectedRoute: 18,
+    selectedRoute: 38,
     routeLocations: ""
 };
 

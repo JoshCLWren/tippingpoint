@@ -20,19 +20,32 @@ import { GET_ROUTE } from "../../GQL/gql";
             {
               const route = await data
               console.log(route)
+              if(route){
+                const routeLocationArray = Object.values(route.route.locations);
+                console.log(routeLocationArray);
+                const coordinates = routeLocationArray.map(a => a.gps)
+                console.log(coordinates);
+                const routeLocations = coordinates.join(";")
+                console.log(routeLocations)
+                if(routeLocations){
+                  const optimizedObject = await fetch("https://api.mapbox.com/optimized-trips/v1/mapbox/driving/" + routeLocations +"?access_token=pk.eyJ1Ijoiam9zaGlzcGx1dGFyIiwiYSI6ImNqeTZwNGF1ODAxa2IzZHA2Zm9iOWNhNXYifQ.X0D2p9KD-IXd7keb199nbg")
+                  const mapboxObject = await optimizedObject.json();
+                  console.log(mapboxObject.trips[0].distance)
+                  const meters = mapboxObject.trips[0].distance;
+                  const miles = (parseInt(meters) *  0.00062137119);
+                  console.log(miles);
+                  dispatch({type: 'totalMilesUpdate', payload: miles.toFixed(2)})
+                }
+              }
               // why is this sometimes undefined?
 
-              // const routeLocationArray = await Object.keys(route.locations);
-              // const coordinates = routeLocationArray.map(a => a.gps)
-              // const routeLocations = coordinates.join(";")
 
-              // const res = await fetch("https://api.mapbox.com/optimized-trips/v1/mapbox/driving/" + routeLocations +"?access_token=pk.eyJ1Ijoiam9zaGlzcGx1dGFyIiwiYSI6ImNqeTZwNGF1ODAxa2IzZHA2Zm9iOWNhNXYifQ.X0D2p9KD-IXd7keb199nbg")
               // const mapBoxObject = await res.json();
               // const meters = mapBoxObject.distances[0];
               // const miles = (parseInt(meters) *  0.00062137119);
               // const roundtrip = 2 * miles;
               // dispatch({type: 'totalMilesUpdate', payload: roundtrip.toFixed(2)})
-              // console.log(routeLocations)
+
             }
 
         useEffect(() => {
