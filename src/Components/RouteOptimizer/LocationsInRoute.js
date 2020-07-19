@@ -1,6 +1,6 @@
-import React, {useEffect} from 'react'
+import React from 'react'
 import { useQuery, useMutation } from '@apollo/react-hooks';
-import { GET_ROUTE, DELETE_ROUTE } from "../../GQL/gql";
+import { GET_ROUTE, DELETE_ROUTE_LOCATIONS } from "../../GQL/gql";
 
 const LocationInRoute = (props) => {
 
@@ -9,20 +9,22 @@ const LocationInRoute = (props) => {
   const { loading, error, data } = useQuery(GET_ROUTE, {
     variables: {id: passedId}
   });
-  const [deleteRouteocation] = useMutation(DELETE_ROUTE_LOCATIONS);
+  const [deleteRouteLocation] = useMutation(DELETE_ROUTE_LOCATIONS);
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>ERROR: {error.message}</p>;
   if (!data) return <p>Not found</p>;
 
-  return data.route.locations.map(({ slug }) => (
-    <li key={slug}>
-      {slug}
-    </li>
-    <button className="danger" onClick={() => deleteRouteLocation({variables: {passedId}, refetchQueries: [{query: GET_ROUTE}]})}>
-    Delete Location
-    </button>
-));
+  return data.route.locations.map(({ id, slug }) => (
+    <>
+      <li key={id}>
+        {slug}
+      </li>
+      <button className="danger" onClick={() => deleteRouteLocation({variables: {id}, refetchQueries: [{query: GET_ROUTE}]})}>
+        Remove
+      </button>
+    </>
+  ))
 
   // return (
 

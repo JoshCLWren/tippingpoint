@@ -5,6 +5,7 @@ import CustomTrip from "./CustomTrip";
 import TotalDrivers from "./TotalDrivers";
 import RentalPaddingDay from "./RentalPaddingDay";
 import DetailedExpenses from "./DetailedExpenses";
+import CustomRoute from "./CustomRoute";
 
 const TripCalculator = () => {
   return(
@@ -12,6 +13,7 @@ const TripCalculator = () => {
       <div className="column">
           <Totals />
           <CustomTrip />
+          <CustomRoute />
           <TotalDrivers />
           <RentalPaddingDay />
       </div>

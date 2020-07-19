@@ -5,7 +5,6 @@ import Get from "./Get";
 import Post from "./Post";
 import { useAuth0 } from "@auth0/auth0-react";
 import Header from "../NavBar/Header";
-import RouteOptimzer from '../RouteOptimizer/RouteOptimzer';
 // import {
 //   BrowserRouter as Router,
 //   Switch,

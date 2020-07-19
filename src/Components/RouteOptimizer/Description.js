@@ -1,13 +1,11 @@
-import React, {useEffect} from 'react'
-import { useQuery, useMutation } from '@apollo/react-hooks';
-import { GET_ROUTE, DELETE_ROUTE } from "../../GQL/gql";
-import { useMileDispatch, useMileState } from '../TripCalculator/MileContext';
+import React from 'react'
+import { useQuery } from '@apollo/react-hooks';
+import { GET_ROUTE } from "../../GQL/gql";
 import LocationsInRoute from "./LocationsInRoute";
 
 
 const Description = (props) => {
 
-  const {locationID} = useMileState()
 
     // async function getRouteOrder()
     //   {

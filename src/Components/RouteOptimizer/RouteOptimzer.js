@@ -1,34 +1,30 @@
-import React, {useState} from 'react'
+import React from 'react'
 import { useForm } from "react-hook-form"
 import { useAuth0 } from "@auth0/auth0-react";
-import { useQuery, useMutation } from '@apollo/react-hooks';
-import { GET_ROUTES, CREATE_ROUTE, CREATE_ROUTE_LOCATION } from "../../GQL/gql";
+import { useMutation } from '@apollo/react-hooks';
+import { GET_ROUTES, CREATE_ROUTE } from "../../GQL/gql";
 import Table from 'react-bootstrap/Table';
-import RouteLocationsSelector from './RouteLocationsSelector';
 import GetRoutes from './GetRoutes';
 
 
   const RouteOptimzer = (props) => {
     const { isAuthenticated } = useAuth0();
-    const [locations, setLocations] = useState([]);
-    const { loading, error, data } = useQuery(GET_ROUTES);
 
     const [createRoute] = useMutation(CREATE_ROUTE)
-    const [createRouteLocation] = useMutation(CREATE_ROUTE_LOCATION)
     const { register, handleSubmit, errors } = useForm();
 
-    function loopOverLocations(locations, routeDesignator){
-      for(var i = 1; i > locations.length; i++){
-        createRouteLocation(
-          {
-            variables: {
-              routeId: routeDesignator,
-              locationId: i
-            }
-          }
-        )
-      }
-    }
+    // function loopOverLocations(locations, routeDesignator){
+    //   for(var i = 1; i > locations.length; i++){
+    //     createRouteLocation(
+    //       {
+    //         variables: {
+    //           routeId: routeDesignator,
+    //           locationId: i
+    //         }
+    //       }
+    //     )
+    //   }
+    // }
 
     const onSubmit = data => createRoute({variables: {name: data.name, description: data.description},refetchQueries: [{query: GET_ROUTES}],});
 
@@ -39,24 +35,24 @@ import GetRoutes from './GetRoutes';
 
     // const onSubmit = locations => console.log(locations)
 
-    function checkedLocations(checkedId) {
+    // function checkedLocations(checkedId) {
 
-      // we're getting somewhere. The function runs at render but is alos runs each time it's clicked. How do we get it to not run at render?
-        if (!locations.includes(checkedId)) {
-        locations.push(checkedId)
+    //   // we're getting somewhere. The function runs at render but is alos runs each time it's clicked. How do we get it to not run at render?
+    //     if (!locations.includes(checkedId)) {
+    //     locations.push(checkedId)
 
-      } else {
-        const filteredLocations = locations.filter((locationId) => {
-          if (locationId !== checkedId){
-            return true
-          }
-        })
+    //   } else {
+    //     const filteredLocations = locations.filter((locationId) => {
+    //       if (locationId !== checkedId){
+    //         return true
+    //       }
+    //     })
 
-        setLocations(filteredLocations);
-      }
-      console.log(checkedId);
-      console.log(locations)
-    }
+    //     setLocations(filteredLocations);
+    //   }
+    //   console.log(checkedId);
+    //   console.log(locations)
+    // }
 
 
 

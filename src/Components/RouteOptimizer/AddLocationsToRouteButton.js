@@ -1,10 +1,5 @@
-import React, {useState} from 'react'
-import { useQuery, useMutation } from '@apollo/react-hooks';
-import { GET_ROUTES } from "../../GQL/gql";
-import { useMileDispatch, useMileState } from '../TripCalculator/MileContext';
-import { useForm } from "react-hook-form"
+import React from 'react'
 import {
-  BrowserRouter as Router,
   Switch,
   Route,
   Link

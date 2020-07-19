@@ -13,11 +13,15 @@ export const GET_LOCATIONS = gql`
 export const GET_ROUTE = gql`
       query getRoute($id: ID!){
         route(id: $id){
-
           id
           name
           description
           locationsCount
+          routeLocations{
+            id
+            locationId
+            routeId
+          }
           locations{
             id
             slug
@@ -26,7 +30,14 @@ export const GET_ROUTE = gql`
         }
       }
 `;
-
+export const GET_ROUTE_LOCATION = gql`
+query getRouteLocation($id: ID!){
+  route(id: $id){
+    id
+    routeId
+    locationId
+}}
+`;
 export const DELETE_LOCATIONS = gql`
   mutation deleteLocation($id: String!){
     deleteLocation(
@@ -41,18 +52,15 @@ export const DELETE_LOCATIONS = gql`
 `;
 
 export const DELETE_ROUTE_LOCATIONS = gql`
-  mutation deleteRouteLocation($routeId: String!, $locationId: String!){
+  mutation deleteRouteLocation($id: String!){
     deleteRouteLocation(
-      input:{routeId: $routeId, locationId: $locationId}){
+      input:{id: $id}){
     routeLocation{
-      routeId
-      locationId
+      id
     }
   }
 }
 `;
-
-
 
 export const CREATE_LOCATION = gql`
 mutation CreateLocation($slug: String!, $gps: String!){
@@ -114,6 +122,11 @@ export const GET_ROUTES = gql`
     name,
     description,
     locationsCount,
+    routeLocations{
+      id
+      locationId
+      routeId
+    }
     locations{
       id
       slug

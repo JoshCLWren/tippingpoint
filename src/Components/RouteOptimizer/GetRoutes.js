@@ -1,17 +1,10 @@
-import React, {useEffect} from 'react'
+import React from 'react'
 import { useQuery, useMutation } from '@apollo/react-hooks';
 import { GET_ROUTES, DELETE_ROUTE } from "../../GQL/gql";
-import { useMileDispatch, useMileState } from '../TripCalculator/MileContext';
-import AddLocationCheckbox from "./AddLocationCheckbox";
-import { useForm } from "react-hook-form"
 import AddLocationsToRouteButton from "./AddLocationsToRouteButton"
 import {
   BrowserRouter as Router,
-  Switch,
-  Route,
-  Link
 } from "react-router-dom";
-import AddLocationsToRoute from "./AddLocationsToRoute";
 import Description from "./Description";
 
   const GetRoutes = (props) => {
