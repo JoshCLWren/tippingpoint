@@ -8,11 +8,8 @@ const TotalButton = () => {
 
   const handleClick = () => {
     dispatch({type: 'calculateTotals'});
-    console.log("fuel an nan? " + isNaN(truck26Fuel));
-    console.log("fees an nan? " + isNaN(rental26Fees));
-    console.log("meals an nan? " + isNaN(mealCost));
-    console.log("hotel an nan? " + isNaN(hotelTotalCost));
-    console.log("26total an nan? " + isNaN(truck26Total));
+    console.log("rental26 fees :" + rental26Fees);
+    console.log("truck26total: " + truck26Total);
   }
 
 

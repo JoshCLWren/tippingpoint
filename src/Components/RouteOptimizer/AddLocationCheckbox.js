@@ -15,10 +15,10 @@ const AddLocationCheckbox = (props) => {
             name="ids"
             checked={checked}
             onClick={() => handleClick()}
-            onChange={() => props.checkedLocations(props.id)}
+            onChange={() => props.checkedLocations(props.parseInt(id))}
             ref={register({ required: true, maxLength: 12 })}
       />
-      {errors.ids && <p>Routes can't contain more that 12 locations</p>}
+      {/* {errors.ids && <p>Routes can't contain more that 12 locations</p>} */}
     </>
   )
 

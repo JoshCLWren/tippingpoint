@@ -11,7 +11,7 @@ import { GET_ROUTE } from "../../GQL/gql";
       const dispatch = useMileDispatch()
 
       const { loading, error, data} = useQuery(GET_ROUTE, {
-        variables: {id: selectedRoute},
+        variables: {id: parseInt(selectedRoute)},
       });
 
 

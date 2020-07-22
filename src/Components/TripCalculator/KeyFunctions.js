@@ -35,8 +35,13 @@ return labor + gas + hotel + meals;
 }
 
 export const rental26Fees = (totalMiles, rentalPaddingDay, drivingDays) => {
+  console.log("totalmiles: " + totalMiles + " |rentalpaddingday:" + rentalPaddingDay + "|drivingdays:" + drivingDays);
+  console.log("cost per day: " +(KEY_NUMBERS.ENTERPRISE_16_DAILY_FEE * (drivingDays + rentalPaddingDay%7)));
+  console.log("Cost per week: " + Math.floor((KEY_NUMBERS.ENTERPRISE_26_WEEKLY_FEE * (drivingDays + rentalPaddingDay)/7)));
+  console.log("roadside charge: " + (KEY_NUMBERS.ENTERPRISE_ROADSIDE_DAILY * (drivingDays + rentalPaddingDay)));
+  console.log("mileage charge: " + (KEY_NUMBERS.ENTERPRISE_MILEAGE_CHARGE * (totalMiles + KEY_NUMBERS.ROUND_TRIP_WAREHOUSE_ENTERPRISE)));
   return parseInt((KEY_NUMBERS.ENTERPRISE_26_DAILY_FEE * (drivingDays + rentalPaddingDay%7)) +
-          (KEY_NUMBERS.ENTERPRISE_26_WEEKLY_FEE * (drivingDays + rentalPaddingDay)/7) +
+          Math.floor((KEY_NUMBERS.ENTERPRISE_26_WEEKLY_FEE * (drivingDays + rentalPaddingDay)/7)) +
           (KEY_NUMBERS.ENTERPRISE_ROADSIDE_DAILY * (drivingDays + rentalPaddingDay)) +
           (KEY_NUMBERS.ENTERPRISE_MILEAGE_CHARGE * (totalMiles + KEY_NUMBERS.ROUND_TRIP_WAREHOUSE_ENTERPRISE)));
 }

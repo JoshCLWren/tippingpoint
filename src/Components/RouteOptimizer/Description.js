@@ -26,7 +26,7 @@ const Description = (props) => {
 
   const passedId = props.id
     const { loading, error, data } = useQuery(GET_ROUTE, {
-      variables: {id: passedId}
+      variables: {id: parseInt(passedId)}
     });
 
     // const extractedLocations = (obj) =>{
@@ -49,6 +49,7 @@ const Description = (props) => {
       <ul>
         Locations
         <LocationsInRoute
+          key={passedId}
           id ={passedId}
           data ={data}
         />

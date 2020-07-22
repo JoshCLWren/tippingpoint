@@ -18,7 +18,7 @@ const AddLocationsToRouteButton = (props) =>
           Add Locations
         </Link>
         <Switch>
-          <Route path="/addLocationsToRoute" component={() => <AddLocationsToRoute id={props.id}/>}/>
+          <Route path="/addLocationsToRoute" component={() => <AddLocationsToRoute id={parseInt(props.id)}/>}/>
         </Switch>
 
     </>

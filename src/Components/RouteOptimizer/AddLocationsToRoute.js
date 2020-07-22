@@ -24,7 +24,7 @@ const AddLocationsToRoute = (props) => {
       <button onClick={() => createRouteLocation(
         {
         variables: {
-          routeId: props.id,
+          routeId: parseInt(props.id),
           locationId: locationID
         }
       })}>Add Location to Route</button>

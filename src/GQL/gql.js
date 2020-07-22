@@ -39,7 +39,7 @@ query getRouteLocation($id: ID!){
 }}
 `;
 export const DELETE_LOCATIONS = gql`
-  mutation deleteLocation($id: String!){
+  mutation deleteLocation($id: ID!){
     deleteLocation(
       input:{id: $id}){
     location{
@@ -52,9 +52,20 @@ export const DELETE_LOCATIONS = gql`
 `;
 
 export const DELETE_ROUTE_LOCATIONS = gql`
-  mutation deleteRouteLocation($id: String!){
+  mutation deleteRouteLocation($id: ID!){
     deleteRouteLocation(
       input:{id: $id}){
+    routeLocation{
+      id
+    }
+  }
+}
+`;
+
+export const DELETE_ROUTE_LOCATION_BY_IDS = gql`
+  mutation deleteRouteLocationByIds($locationId: ID!, $routeId: ID!){
+    deleteRouteLocationByIds(
+      input:{locationId: $locationId, routeId: $routeId}){
     routeLocation{
       id
     }
@@ -75,7 +86,7 @@ mutation CreateLocation($slug: String!, $gps: String!){
 `;
 
 export const UPDATE_LOCATION = gql`
-  mutation updateLocation($id: String!){
+  mutation updateLocation($id: ID!){
     updateLocation(
       input:{id: $id, slug: $slug, gps: $gps}){
         location{
