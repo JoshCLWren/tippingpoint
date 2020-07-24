@@ -1,13 +1,21 @@
 import React from 'react'
 import { useQuery, useMutation } from '@apollo/react-hooks';
-import { GET_ROUTES, DELETE_ROUTE } from "../../GQL/gql";
-import AddLocationsToRouteButton from "./AddLocationsToRouteButton"
-import {
-  BrowserRouter as Router,
-} from "react-router-dom";
+import { GET_ROUTES, DELETE_ROUTE, CREATE_ROUTE_LOCATION } from "../../GQL/gql";
+import { useMileDispatch, useMileState } from '../TripCalculator/MileContext';
+// import {
+//   BrowserRouter as Router,
+//   Switch,
+//   Route,
+//   Link
+// } from "react-router-dom";
 import Description from "./Description";
+// import AddLocationsToRoute from "./AddLocationsToRoute";
+import LocationIDs from "./LocationIDs"
 
   const GetRoutes = (props) => {
+    const {locationID} = useMileState()
+    const dispatch = useMileDispatch()
+    const [createRouteLocation] = useMutation(CREATE_ROUTE_LOCATION)
 
 
     const [deleteRoute] = useMutation(DELETE_ROUTE);
@@ -28,25 +36,27 @@ import Description from "./Description";
             />
           </td>
           <td>
-            <Router>
-              <AddLocationsToRouteButton
-                id={id}
-                name={name}
-                description={description}
-                locations={locations}
-              />
-            </Router>
+          <select value={locationID} onChange={(event) => dispatch({type: 'addLocationID', payload: event.target.value})}>
+            {
+              <LocationIDs />
+            }
+          </select>
+          <button onClick={() => createRouteLocation(
+            {
+            variables: {
+              routeId: parseInt(id),
+              locationId: locationID
+            },
+            refetchQueries: [{query: GET_ROUTES}]
+          })}>Add Location to Route</button>
 
-            <button className="danger" onClick={() => deleteRoute({variables: {id}, refetchQueries: [{query: GET_ROUTES}]})}>
-                Delete Route
-              </button>
-            {/* <AddLocationCheckbox
-              checkedLocations = {props.checkedLocations}
-              ref={register({ required: true, maxLength: 12 })}
-              id = {id}
-              // pass the function through a prop that's not an event listener.
-            /> */}
 
+          <p>location id ={locationID}</p>
+          <p>route id = {props.id}</p>
+
+          <button className="danger" onClick={() => deleteRoute({variables: {id}, refetchQueries: [{query: GET_ROUTES}]})}>
+              Delete Route
+          </button>
           </td>
         </tr>
       </tbody>

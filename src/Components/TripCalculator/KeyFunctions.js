@@ -34,27 +34,31 @@ export const vanTotal = (labor, gas, hotel, meals) => {
 return labor + gas + hotel + meals;
 }
 
+
+
 export const rental26Fees = (totalMiles, rentalPaddingDay, drivingDays) => {
-  console.log("totalmiles: " + totalMiles + " |rentalpaddingday:" + rentalPaddingDay + "|drivingdays:" + drivingDays);
-  console.log("cost per day: " +(KEY_NUMBERS.ENTERPRISE_16_DAILY_FEE * (drivingDays + rentalPaddingDay%7)));
-  console.log("Cost per week: " + Math.floor((KEY_NUMBERS.ENTERPRISE_26_WEEKLY_FEE * (drivingDays + rentalPaddingDay)/7)));
-  console.log("roadside charge: " + (KEY_NUMBERS.ENTERPRISE_ROADSIDE_DAILY * (drivingDays + rentalPaddingDay)));
-  console.log("mileage charge: " + (KEY_NUMBERS.ENTERPRISE_MILEAGE_CHARGE * (totalMiles + KEY_NUMBERS.ROUND_TRIP_WAREHOUSE_ENTERPRISE)));
-  return parseInt((KEY_NUMBERS.ENTERPRISE_26_DAILY_FEE * (drivingDays + rentalPaddingDay%7)) +
-          Math.floor((KEY_NUMBERS.ENTERPRISE_26_WEEKLY_FEE * (drivingDays + rentalPaddingDay)/7)) +
-          (KEY_NUMBERS.ENTERPRISE_ROADSIDE_DAILY * (drivingDays + rentalPaddingDay)) +
-          (KEY_NUMBERS.ENTERPRISE_MILEAGE_CHARGE * (totalMiles + KEY_NUMBERS.ROUND_TRIP_WAREHOUSE_ENTERPRISE)));
+  // state is adding an extra day due to a yet to be found bug so I removed a day in the calculations to compensate until the bug is fixed
+  let drivingPaddingDays = (drivingDays + rentalPaddingDay-1)%7
+  let dailyFee = (KEY_NUMBERS.ENTERPRISE_26_DAILY_FEE * drivingPaddingDays);
+  let weeks = (KEY_NUMBERS.ENTERPRISE_26_WEEKLY_FEE * Math.floor((drivingDays + rentalPaddingDay-1)/7));
+  let roadside = (KEY_NUMBERS.ENTERPRISE_ROADSIDE_DAILY * (drivingDays + rentalPaddingDay));
+  let miles = (KEY_NUMBERS.ENTERPRISE_MILEAGE_CHARGE * (totalMiles + KEY_NUMBERS.ROUND_TRIP_WAREHOUSE_ENTERPRISE))
+  return parseInt(dailyFee + weeks + roadside + miles);
 }
+
 
 export const truck26Fuel = (totalMiles, diesel) => {
   return parseInt((totalMiles / KEY_NUMBERS.TRUCK_26_MPG) * parseFloat(diesel))
 }
 
 export const rental16Fees = (totalMiles, rentalPaddingDay, drivingDays) => {
-  return parseInt((KEY_NUMBERS.ENTERPRISE_16_DAILY_FEE * (drivingDays + rentalPaddingDay%7)) +
-          (KEY_NUMBERS.ENTERPRISE_16_WEEKLY_FEE * (drivingDays + rentalPaddingDay)/7) +
-          (KEY_NUMBERS.ENTERPRISE_ROADSIDE_DAILY * (drivingDays + rentalPaddingDay)) +
-          (KEY_NUMBERS.ENTERPRISE_MILEAGE_CHARGE * (totalMiles + KEY_NUMBERS.ROUND_TRIP_WAREHOUSE_ENTERPRISE)));
+  // state is adding an extra day due to a yet to be found bug so I removed a day in the calculations to compensate until the bug is fixed
+  let drivingPaddingDays = (drivingDays + rentalPaddingDay-1)%7
+  let dailyFee = (KEY_NUMBERS.ENTERPRISE_16_DAILY_FEE * drivingPaddingDays);
+  let weeks = (KEY_NUMBERS.ENTERPRISE_16_WEEKLY_FEE * Math.floor((drivingDays + rentalPaddingDay-1)/7));
+  let roadside = (KEY_NUMBERS.ENTERPRISE_ROADSIDE_DAILY * (drivingDays + rentalPaddingDay));
+  let miles = (KEY_NUMBERS.ENTERPRISE_MILEAGE_CHARGE * (totalMiles + KEY_NUMBERS.ROUND_TRIP_WAREHOUSE_ENTERPRISE))
+  return parseInt(dailyFee + weeks + roadside + miles);
 }
 
 export const truck16Fuel = (totalMiles, diesel) => {

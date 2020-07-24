@@ -11,7 +11,7 @@ import GetRoutes from './GetRoutes';
     const { isAuthenticated } = useAuth0();
 
     const [createRoute] = useMutation(CREATE_ROUTE)
-    const { register, handleSubmit, errors } = useForm();
+    const { register, handleSubmit, errors, reset } = useForm();
 
     // function loopOverLocations(locations, routeDesignator){
     //   for(var i = 1; i > locations.length; i++){
@@ -26,7 +26,8 @@ import GetRoutes from './GetRoutes';
     //   }
     // }
 
-    const onSubmit = data => createRoute({variables: {name: data.name, description: data.description},refetchQueries: [{query: GET_ROUTES}],});
+    const onSubmit = data => createRoute({variables: {name: data.name, description: data.description},
+      refetchQueries: [{query: GET_ROUTES}]});
 
 
     // const onSubmit = data => createRoute({
@@ -77,7 +78,12 @@ import GetRoutes from './GetRoutes';
               placeholder="Tell me about this route"
             />
           {errors.gps && <p>Description can't be blank and can't esceed 50 characters.</p>}
-          <input type="submit" />
+          <input type="submit" onCLick={() => reset(
+            {
+              name: "Route Name",
+              description: "Tell me about this here "
+            }
+          )} />
 
           <p>Now add some locations to your Route.</p>
           <Table striped bordered hover>
