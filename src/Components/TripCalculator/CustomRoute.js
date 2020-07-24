@@ -34,6 +34,7 @@ import { GET_ROUTE } from "../../GQL/gql";
                   const meters = mapboxObject.trips[0].distance;
                   const miles = (parseInt(meters) *  0.00062137119);
                   console.log(miles);
+                  console.log("dispatc");
                   dispatch({type: 'totalMilesUpdate', payload: miles.toFixed(2)})
                 }
               }

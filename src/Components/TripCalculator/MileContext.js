@@ -101,7 +101,7 @@ function mileReducer(state, action) {
             return {...state, locationID: action.payload}
         }
         case "routeChange": {
-            return {...state, route: action.payload}
+            return {...state, selectedRoute: action.payload}
         }
         case "rentalPaddingDayChange": {
             return {...state,
