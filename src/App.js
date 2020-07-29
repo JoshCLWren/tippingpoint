@@ -39,7 +39,7 @@ function App() {
 
 
   const httpLink = createHttpLink({
-    uri: 'https://tipping-point-api.herokuapp.com/api/v2/graphql/'
+    uri: 'http://localhost:5000/api/v2/graphql/'
   });
 
   const authLink = setContext((_, { headers }) => {

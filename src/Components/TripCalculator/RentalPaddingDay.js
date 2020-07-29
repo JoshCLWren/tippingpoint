@@ -14,7 +14,7 @@ const RentalPaddingDay = () => {
                 <input
                     type="number"
                     name="rentalPaddingDay"
-                    min="1"
+                    min="0"
                     defaultValue="1"
                     onChange={(event) => dispatch({type: 'rentalPaddingDayChange', payload: event.target.value})}
                 />
